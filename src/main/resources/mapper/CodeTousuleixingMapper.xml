@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.code.mapper.CodeTousuleixingMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.code.entity.CodeTousuleixing" >
+    <id column="CTL_ID" property="ctlId" jdbcType="VARCHAR" />
+    <result column="CTL_NAME" property="ctlName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CTL_ID, CTL_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_TOUSULEIXING
+    where CTL_ID = #{ctlId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_TOUSULEIXING
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CODE_TOUSULEIXING
+    where CTL_ID = #{ctlId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.code.entity.CodeTousuleixing" >
+    insert into CODE_TOUSULEIXING (CTL_ID, CTL_NAME)
+    values (#{ctlId,jdbcType=VARCHAR}, #{ctlName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.code.entity.CodeTousuleixing" >
+    insert into CODE_TOUSULEIXING
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ctlId != null" >
+        CTL_ID,
+      </if>
+      <if test="ctlName != null" >
+        CTL_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ctlId != null" >
+        #{ctlId,jdbcType=VARCHAR},
+      </if>
+      <if test="ctlName != null" >
+        #{ctlName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.code.entity.CodeTousuleixing" >
+    update CODE_TOUSULEIXING
+    <set >
+      <if test="ctlName != null" >
+        CTL_NAME = #{ctlName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CTL_ID = #{ctlId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.code.entity.CodeTousuleixing" >
+    update CODE_TOUSULEIXING
+    set CTL_NAME = #{ctlName,jdbcType=VARCHAR}
+    where CTL_ID = #{ctlId,jdbcType=VARCHAR}
+  </update>
+</mapper>

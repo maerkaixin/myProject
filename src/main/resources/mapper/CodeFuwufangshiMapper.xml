@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.code.mapper.CodeFuwufangshiMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.code.entity.CodeFuwufangshi" >
+    <id column="CFF_ID" property="cffId" jdbcType="VARCHAR" />
+    <result column="CFF_NAME" property="cffName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CFF_ID, CFF_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_FUWUFANGSHI
+    where CFF_ID = #{cffId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_FUWUFANGSHI
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CODE_FUWUFANGSHI
+    where CFF_ID = #{cffId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.code.entity.CodeFuwufangshi" >
+    insert into CODE_FUWUFANGSHI (CFF_ID, CFF_NAME)
+    values (#{cffId,jdbcType=VARCHAR}, #{cffName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.code.entity.CodeFuwufangshi" >
+    insert into CODE_FUWUFANGSHI
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cffId != null" >
+        CFF_ID,
+      </if>
+      <if test="cffName != null" >
+        CFF_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cffId != null" >
+        #{cffId,jdbcType=VARCHAR},
+      </if>
+      <if test="cffName != null" >
+        #{cffName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.code.entity.CodeFuwufangshi" >
+    update CODE_FUWUFANGSHI
+    <set >
+      <if test="cffName != null" >
+        CFF_NAME = #{cffName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CFF_ID = #{cffId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.code.entity.CodeFuwufangshi" >
+    update CODE_FUWUFANGSHI
+    set CFF_NAME = #{cffName,jdbcType=VARCHAR}
+    where CFF_ID = #{cffId,jdbcType=VARCHAR}
+  </update>
+</mapper>

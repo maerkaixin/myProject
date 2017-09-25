@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.code.mapper.CodeWeixiuleixingMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.code.entity.CodeWeixiuleixing" >
+    <id column="CWL_ID" property="cwlId" jdbcType="VARCHAR" />
+    <result column="CWL_NAME" property="cwlName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CWL_ID, CWL_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_WEIXIULEIXING
+    where CWL_ID = #{cwlId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_WEIXIULEIXING
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CODE_WEIXIULEIXING
+    where CWL_ID = #{cwlId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.code.entity.CodeWeixiuleixing" >
+    insert into CODE_WEIXIULEIXING (CWL_ID, CWL_NAME)
+    values (#{cwlId,jdbcType=VARCHAR}, #{cwlName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.code.entity.CodeWeixiuleixing" >
+    insert into CODE_WEIXIULEIXING
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cwlId != null" >
+        CWL_ID,
+      </if>
+      <if test="cwlName != null" >
+        CWL_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cwlId != null" >
+        #{cwlId,jdbcType=VARCHAR},
+      </if>
+      <if test="cwlName != null" >
+        #{cwlName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.code.entity.CodeWeixiuleixing" >
+    update CODE_WEIXIULEIXING
+    <set >
+      <if test="cwlName != null" >
+        CWL_NAME = #{cwlName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CWL_ID = #{cwlId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.code.entity.CodeWeixiuleixing" >
+    update CODE_WEIXIULEIXING
+    set CWL_NAME = #{cwlName,jdbcType=VARCHAR}
+    where CWL_ID = #{cwlId,jdbcType=VARCHAR}
+  </update>
+</mapper>

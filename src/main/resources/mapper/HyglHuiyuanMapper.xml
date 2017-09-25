@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.huiyuan.mapper.HyglHuiyuanMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.huiyuan.entity.HyglHuiyuan" >
+    <id column="HY_ID" property="hyId" jdbcType="VARCHAR" />
+    <result column="CRF_ID" property="crfId" jdbcType="VARCHAR" />
+    <result column="HY_NAME" property="hyName" jdbcType="VARCHAR" />
+    <result column="HY_NO" property="hyNo" jdbcType="VARCHAR" />
+    <result column="HY_AGE" property="hyAge" jdbcType="DECIMAL" />
+    <result column="HY_SEX" property="hySex" jdbcType="VARCHAR" />
+    <result column="HY_BIRTH" property="hyBirth" jdbcType="TIMESTAMP" />
+    <result column="HY_GONGZHUODANWEI" property="hyGongzhuodanwei" jdbcType="VARCHAR" />
+    <result column="HY_SHENFENZHENG" property="hyShenfenzheng" jdbcType="VARCHAR" />
+    <result column="HY_ZHIYE" property="hyZhiye" jdbcType="VARCHAR" />
+    <result column="HY_XUEXING" property="hyXuexing" jdbcType="VARCHAR" />
+    <result column="HY_SHENGAO" property="hyShengao" jdbcType="DECIMAL" />
+    <result column="HY_TIZHONG" property="hyTizhong" jdbcType="DECIMAL" />
+    <result column="HY_YOUBIAN" property="hyYoubian" jdbcType="VARCHAR" />
+    <result column="HY_EMAIL" property="hyEmail" jdbcType="VARCHAR" />
+    <result column="HY_HUNYINQINGKUANG" property="hyHunyinqingkuang" jdbcType="VARCHAR" />
+    <result column="HY_IN_DATE" property="hyInDate" jdbcType="TIMESTAMP" />
+    <result column="HY_OUT_DATE" property="hyOutDate" jdbcType="TIMESTAMP" />
+    <result column="HY_PHONE" property="hyPhone" jdbcType="VARCHAR" />
+    <result column="HY_INFO" property="hyInfo" jdbcType="VARCHAR" />
+    <result column="HY_PIC" property="hyPic" jdbcType="VARCHAR" />
+    <result column="CRF_NAME" property="crfName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    HY_ID, CRF_ID, HY_NAME, HY_NO, HY_AGE, HY_SEX, HY_BIRTH, HY_GONGZHUODANWEI, HY_SHENFENZHENG, 
+    HY_ZHIYE, HY_XUEXING, HY_SHENGAO, HY_TIZHONG, HY_YOUBIAN, HY_EMAIL, HY_HUNYINQINGKUANG, 
+    HY_IN_DATE, HY_OUT_DATE, HY_PHONE, HY_INFO, HY_PIC
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HYGL_HUIYUAN
+    where HY_ID = #{hyId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HYGL_HUIYUAN
+    where HY_ID = #{hyId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.huiyuan.entity.HyglHuiyuan" >
+    insert into HYGL_HUIYUAN (HY_ID, CRF_ID, HY_NAME, 
+      HY_NO, HY_AGE, HY_SEX, 
+      HY_BIRTH, HY_GONGZHUODANWEI, HY_SHENFENZHENG, 
+      HY_ZHIYE, HY_XUEXING, HY_SHENGAO, 
+      HY_TIZHONG, HY_YOUBIAN, HY_EMAIL, 
+      HY_HUNYINQINGKUANG, HY_IN_DATE, HY_OUT_DATE, 
+      HY_PHONE, HY_INFO, HY_PIC
+      )
+    values (#{hyId,jdbcType=VARCHAR}, #{crfId,jdbcType=VARCHAR}, #{hyName,jdbcType=VARCHAR}, 
+      #{hyNo,jdbcType=VARCHAR}, #{hyAge,jdbcType=DECIMAL}, #{hySex,jdbcType=VARCHAR}, 
+      #{hyBirth,jdbcType=TIMESTAMP}, #{hyGongzhuodanwei,jdbcType=VARCHAR}, #{hyShenfenzheng,jdbcType=VARCHAR}, 
+      #{hyZhiye,jdbcType=VARCHAR}, #{hyXuexing,jdbcType=VARCHAR}, #{hyShengao,jdbcType=DECIMAL}, 
+      #{hyTizhong,jdbcType=DECIMAL}, #{hyYoubian,jdbcType=VARCHAR}, #{hyEmail,jdbcType=VARCHAR}, 
+      #{hyHunyinqingkuang,jdbcType=VARCHAR}, #{hyInDate,jdbcType=TIMESTAMP}, #{hyOutDate,jdbcType=TIMESTAMP}, 
+      #{hyPhone,jdbcType=VARCHAR}, #{hyInfo,jdbcType=VARCHAR}, #{hyPic,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.huiyuan.entity.HyglHuiyuan" >
+    insert into HYGL_HUIYUAN
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hyId != null" >
+        HY_ID,
+      </if>
+      <if test="crfId != null" >
+        CRF_ID,
+      </if>
+      <if test="hyName != null" >
+        HY_NAME,
+      </if>
+      <if test="hyNo != null" >
+        HY_NO,
+      </if>
+      <if test="hyAge != null" >
+        HY_AGE,
+      </if>
+      <if test="hySex != null" >
+        HY_SEX,
+      </if>
+      <if test="hyBirth != null" >
+        HY_BIRTH,
+      </if>
+      <if test="hyGongzhuodanwei != null" >
+        HY_GONGZHUODANWEI,
+      </if>
+      <if test="hyShenfenzheng != null" >
+        HY_SHENFENZHENG,
+      </if>
+      <if test="hyZhiye != null" >
+        HY_ZHIYE,
+      </if>
+      <if test="hyXuexing != null" >
+        HY_XUEXING,
+      </if>
+      <if test="hyShengao != null" >
+        HY_SHENGAO,
+      </if>
+      <if test="hyTizhong != null" >
+        HY_TIZHONG,
+      </if>
+      <if test="hyYoubian != null" >
+        HY_YOUBIAN,
+      </if>
+      <if test="hyEmail != null" >
+        HY_EMAIL,
+      </if>
+      <if test="hyHunyinqingkuang != null" >
+        HY_HUNYINQINGKUANG,
+      </if>
+      <if test="hyInDate != null" >
+        HY_IN_DATE,
+      </if>
+      <if test="hyOutDate != null" >
+        HY_OUT_DATE,
+      </if>
+      <if test="hyPhone != null" >
+        HY_PHONE,
+      </if>
+      <if test="hyInfo != null" >
+        HY_INFO,
+      </if>
+      <if test="hyPic != null" >
+        HY_PIC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hyId != null" >
+        #{hyId,jdbcType=VARCHAR},
+      </if>
+      <if test="crfId != null" >
+        #{crfId,jdbcType=VARCHAR},
+      </if>
+      <if test="hyName != null" >
+        #{hyName,jdbcType=VARCHAR},
+      </if>
+      <if test="hyNo != null" >
+        #{hyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="hyAge != null" >
+        #{hyAge,jdbcType=DECIMAL},
+      </if>
+      <if test="hySex != null" >
+        #{hySex,jdbcType=VARCHAR},
+      </if>
+      <if test="hyBirth != null" >
+        #{hyBirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hyGongzhuodanwei != null" >
+        #{hyGongzhuodanwei,jdbcType=VARCHAR},
+      </if>
+      <if test="hyShenfenzheng != null" >
+        #{hyShenfenzheng,jdbcType=VARCHAR},
+      </if>
+      <if test="hyZhiye != null" >
+        #{hyZhiye,jdbcType=VARCHAR},
+      </if>
+      <if test="hyXuexing != null" >
+        #{hyXuexing,jdbcType=VARCHAR},
+      </if>
+      <if test="hyShengao != null" >
+        #{hyShengao,jdbcType=DECIMAL},
+      </if>
+      <if test="hyTizhong != null" >
+        #{hyTizhong,jdbcType=DECIMAL},
+      </if>
+      <if test="hyYoubian != null" >
+        #{hyYoubian,jdbcType=VARCHAR},
+      </if>
+      <if test="hyEmail != null" >
+        #{hyEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="hyHunyinqingkuang != null" >
+        #{hyHunyinqingkuang,jdbcType=VARCHAR},
+      </if>
+      <if test="hyInDate != null" >
+        #{hyInDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hyOutDate != null" >
+        #{hyOutDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hyPhone != null" >
+        #{hyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="hyInfo != null" >
+        #{hyInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="hyPic != null" >
+        #{hyPic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.huiyuan.entity.HyglHuiyuan" >
+    update HYGL_HUIYUAN
+    <set >
+      <if test="crfId != null" >
+        CRF_ID = #{crfId,jdbcType=VARCHAR},
+      </if>
+      <if test="hyName != null" >
+        HY_NAME = #{hyName,jdbcType=VARCHAR},
+      </if>
+      <if test="hyNo != null" >
+        HY_NO = #{hyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="hyAge != null" >
+        HY_AGE = #{hyAge,jdbcType=DECIMAL},
+      </if>
+      <if test="hySex != null" >
+        HY_SEX = #{hySex,jdbcType=VARCHAR},
+      </if>
+      <if test="hyBirth != null" >
+        HY_BIRTH = #{hyBirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hyGongzhuodanwei != null" >
+        HY_GONGZHUODANWEI = #{hyGongzhuodanwei,jdbcType=VARCHAR},
+      </if>
+      <if test="hyShenfenzheng != null" >
+        HY_SHENFENZHENG = #{hyShenfenzheng,jdbcType=VARCHAR},
+      </if>
+      <if test="hyZhiye != null" >
+        HY_ZHIYE = #{hyZhiye,jdbcType=VARCHAR},
+      </if>
+      <if test="hyXuexing != null" >
+        HY_XUEXING = #{hyXuexing,jdbcType=VARCHAR},
+      </if>
+      <if test="hyShengao != null" >
+        HY_SHENGAO = #{hyShengao,jdbcType=DECIMAL},
+      </if>
+      <if test="hyTizhong != null" >
+        HY_TIZHONG = #{hyTizhong,jdbcType=DECIMAL},
+      </if>
+      <if test="hyYoubian != null" >
+        HY_YOUBIAN = #{hyYoubian,jdbcType=VARCHAR},
+      </if>
+      <if test="hyEmail != null" >
+        HY_EMAIL = #{hyEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="hyHunyinqingkuang != null" >
+        HY_HUNYINQINGKUANG = #{hyHunyinqingkuang,jdbcType=VARCHAR},
+      </if>
+      <if test="hyInDate != null" >
+<!--         HY_IN_DATE = #{hyInDate,jdbcType=TIMESTAMP}, -->
+      </if>
+      <if test="hyOutDate != null" >
+        HY_OUT_DATE = #{hyOutDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hyPhone != null" >
+        HY_PHONE = #{hyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="hyInfo != null" >
+        HY_INFO = #{hyInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="hyPic != null" >
+        HY_PIC = #{hyPic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where HY_ID = #{hyId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.huiyuan.entity.HyglHuiyuan" >
+    update HYGL_HUIYUAN
+    set CRF_ID = #{crfId,jdbcType=VARCHAR},
+      HY_NAME = #{hyName,jdbcType=VARCHAR},
+      HY_NO = #{hyNo,jdbcType=VARCHAR},
+      HY_AGE = #{hyAge,jdbcType=DECIMAL},
+      HY_SEX = #{hySex,jdbcType=VARCHAR},
+      HY_BIRTH = #{hyBirth,jdbcType=TIMESTAMP},
+      HY_GONGZHUODANWEI = #{hyGongzhuodanwei,jdbcType=VARCHAR},
+      HY_SHENFENZHENG = #{hyShenfenzheng,jdbcType=VARCHAR},
+      HY_ZHIYE = #{hyZhiye,jdbcType=VARCHAR},
+      HY_XUEXING = #{hyXuexing,jdbcType=VARCHAR},
+      HY_SHENGAO = #{hyShengao,jdbcType=DECIMAL},
+      HY_TIZHONG = #{hyTizhong,jdbcType=DECIMAL},
+      HY_YOUBIAN = #{hyYoubian,jdbcType=VARCHAR},
+      HY_EMAIL = #{hyEmail,jdbcType=VARCHAR},
+      HY_HUNYINQINGKUANG = #{hyHunyinqingkuang,jdbcType=VARCHAR},
+      HY_IN_DATE = #{hyInDate,jdbcType=TIMESTAMP},
+      HY_OUT_DATE = #{hyOutDate,jdbcType=TIMESTAMP},
+      HY_PHONE = #{hyPhone,jdbcType=VARCHAR},
+      HY_INFO = #{hyInfo,jdbcType=VARCHAR},
+      HY_PIC = #{hyPic,jdbcType=VARCHAR}
+    where HY_ID = #{hyId,jdbcType=VARCHAR}
+  </update>
+</mapper>

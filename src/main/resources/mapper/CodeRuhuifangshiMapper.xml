@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.code.mapper.CodeRuhuifangshiMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.code.entity.CodeRuhuifangshi" >
+    <id column="CRF_ID" property="crfId" jdbcType="VARCHAR" />
+    <result column="CRF_NAME" property="crfName" jdbcType="VARCHAR" />
+    <result column="CRF_INFO" property="crfInfo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CRF_ID, CRF_NAME, CRF_INFO
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_RUHUIFANGSHI
+    where CRF_ID = #{crfId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap"   >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_RUHUIFANGSHI
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CODE_RUHUIFANGSHI
+    where CRF_ID = #{crfId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.code.entity.CodeRuhuifangshi" >
+    insert into CODE_RUHUIFANGSHI (CRF_ID, CRF_NAME, CRF_INFO
+      )
+    values (#{crfId,jdbcType=VARCHAR}, #{crfName,jdbcType=VARCHAR}, #{crfInfo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.code.entity.CodeRuhuifangshi" >
+    insert into CODE_RUHUIFANGSHI
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="crfId != null" >
+        CRF_ID,
+      </if>
+      <if test="crfName != null" >
+        CRF_NAME,
+      </if>
+      <if test="crfInfo != null" >
+        CRF_INFO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="crfId != null" >
+        #{crfId,jdbcType=VARCHAR},
+      </if>
+      <if test="crfName != null" >
+        #{crfName,jdbcType=VARCHAR},
+      </if>
+      <if test="crfInfo != null" >
+        #{crfInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.code.entity.CodeRuhuifangshi" >
+    update CODE_RUHUIFANGSHI
+    <set >
+      <if test="crfName != null" >
+        CRF_NAME = #{crfName,jdbcType=VARCHAR},
+      </if>
+      <if test="crfInfo != null" >
+        CRF_INFO = #{crfInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CRF_ID = #{crfId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.code.entity.CodeRuhuifangshi" >
+    update CODE_RUHUIFANGSHI
+    set CRF_NAME = #{crfName,jdbcType=VARCHAR},
+      CRF_INFO = #{crfInfo,jdbcType=VARCHAR}
+    where CRF_ID = #{crfId,jdbcType=VARCHAR}
+  </update>
+</mapper>

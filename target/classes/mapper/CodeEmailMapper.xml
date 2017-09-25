@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.code.mapper.CodeEmailMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.code.entity.CodeEmail" >
+    <id column="CEM_ID" property="cemId" jdbcType="VARCHAR" />
+    <result column="CEM_WEB" property="cemWeb" jdbcType="VARCHAR" />
+    <result column="CEM_NAME" property="cemName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CEM_ID, CEM_WEB, CEM_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_EMAIL
+    where CEM_ID = #{cemId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap"   >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_EMAIL
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CODE_EMAIL
+    where CEM_ID = #{cemId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.code.entity.CodeEmail" >
+    insert into CODE_EMAIL (CEM_ID, CEM_WEB, CEM_NAME
+      )
+    values (#{cemId,jdbcType=VARCHAR}, #{cemWeb,jdbcType=VARCHAR}, #{cemName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.code.entity.CodeEmail" >
+    insert into CODE_EMAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cemId != null" >
+        CEM_ID,
+      </if>
+      <if test="cemWeb != null" >
+        CEM_WEB,
+      </if>
+      <if test="cemName != null" >
+        CEM_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cemId != null" >
+        #{cemId,jdbcType=VARCHAR},
+      </if>
+      <if test="cemWeb != null" >
+        #{cemWeb,jdbcType=VARCHAR},
+      </if>
+      <if test="cemName != null" >
+        #{cemName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.code.entity.CodeEmail" >
+    update CODE_EMAIL
+    <set >
+      <if test="cemWeb != null" >
+        CEM_WEB = #{cemWeb,jdbcType=VARCHAR},
+      </if>
+      <if test="cemName != null" >
+        CEM_NAME = #{cemName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CEM_ID = #{cemId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.code.entity.CodeEmail" >
+    update CODE_EMAIL
+    set CEM_WEB = #{cemWeb,jdbcType=VARCHAR},
+      CEM_NAME = #{cemName,jdbcType=VARCHAR}
+    where CEM_ID = #{cemId,jdbcType=VARCHAR}
+  </update>
+</mapper>

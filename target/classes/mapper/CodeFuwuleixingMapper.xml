@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.code.mapper.CodeFuwuleixingMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.code.entity.CodeFuwuleixing" >
+    <id column="CFL_ID" property="cflId" jdbcType="VARCHAR" />
+    <result column="CFL_NAME" property="cflName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CFL_ID, CFL_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_FUWULEIXING
+    where CFL_ID = #{cflId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_FUWULEIXING
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CODE_FUWULEIXING
+    where CFL_ID = #{cflId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.code.entity.CodeFuwuleixing" >
+    insert into CODE_FUWULEIXING (CFL_ID, CFL_NAME)
+    values (#{cflId,jdbcType=VARCHAR}, #{cflName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.code.entity.CodeFuwuleixing" >
+    insert into CODE_FUWULEIXING
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cflId != null" >
+        CFL_ID,
+      </if>
+      <if test="cflName != null" >
+        CFL_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cflId != null" >
+        #{cflId,jdbcType=VARCHAR},
+      </if>
+      <if test="cflName != null" >
+        #{cflName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.code.entity.CodeFuwuleixing" >
+    update CODE_FUWULEIXING
+    <set >
+      <if test="cflName != null" >
+        CFL_NAME = #{cflName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CFL_ID = #{cflId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.code.entity.CodeFuwuleixing" >
+    update CODE_FUWULEIXING
+    set CFL_NAME = #{cflName,jdbcType=VARCHAR}
+    where CFL_ID = #{cflId,jdbcType=VARCHAR}
+  </update>
+</mapper>

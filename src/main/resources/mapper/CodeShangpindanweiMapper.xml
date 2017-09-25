@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.code.mapper.CodeShangpindanweiMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.code.entity.CodeShangpindanwei" >
+    <id column="CSD_ID" property="csdId" jdbcType="VARCHAR" />
+    <result column="CSD_NAME" property="csdName" jdbcType="VARCHAR" />
+    <result column="CSD_CODE" property="csdCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CSD_ID, CSD_NAME, CSD_CODE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_SHANGPINDANWEI
+    where CSD_ID = #{csdId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_SHANGPINDANWEI
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CODE_SHANGPINDANWEI
+    where CSD_ID = #{csdId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.code.entity.CodeShangpindanwei" >
+    insert into CODE_SHANGPINDANWEI (CSD_ID, CSD_NAME, CSD_CODE
+      )
+    values (#{csdId,jdbcType=VARCHAR}, #{csdName,jdbcType=VARCHAR}, #{csdCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.code.entity.CodeShangpindanwei" >
+    insert into CODE_SHANGPINDANWEI
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="csdId != null" >
+        CSD_ID,
+      </if>
+      <if test="csdName != null" >
+        CSD_NAME,
+      </if>
+      <if test="csdCode != null" >
+        CSD_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="csdId != null" >
+        #{csdId,jdbcType=VARCHAR},
+      </if>
+      <if test="csdName != null" >
+        #{csdName,jdbcType=VARCHAR},
+      </if>
+      <if test="csdCode != null" >
+        #{csdCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.code.entity.CodeShangpindanwei" >
+    update CODE_SHANGPINDANWEI
+    <set >
+      <if test="csdName != null" >
+        CSD_NAME = #{csdName,jdbcType=VARCHAR},
+      </if>
+      <if test="csdCode != null" >
+        CSD_CODE = #{csdCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CSD_ID = #{csdId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.code.entity.CodeShangpindanwei" >
+    update CODE_SHANGPINDANWEI
+    set CSD_NAME = #{csdName,jdbcType=VARCHAR},
+      CSD_CODE = #{csdCode,jdbcType=VARCHAR}
+    where CSD_ID = #{csdId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.code.mapper.CodeShangpinpinpaiMapper">
+	<resultMap id="BaseResultMap" type="com.turing.code.entity.CodeShangpinpinpai">
+		<id column="CSP_ID" property="cspId" jdbcType="VARCHAR" />
+		<result column="CSP_NAME" property="cspName" jdbcType="VARCHAR" />
+		<result column="CSP_INFO" property="cspInfo" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		CSP_ID, CSP_NAME, CSP_INFO
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from CODE_SHANGPINPINPAI
+		where CSP_ID = #{cspId,jdbcType=VARCHAR}
+	</select>
+	<select id="queryAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from CODE_SHANGPINPINPAI
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from CODE_SHANGPINPINPAI
+		where CSP_ID = #{cspId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.turing.code.entity.CodeShangpinpinpai">
+		insert into CODE_SHANGPINPINPAI (CSP_ID, CSP_NAME, CSP_INFO
+		)
+		values (#{cspId,jdbcType=VARCHAR}, #{cspName,jdbcType=VARCHAR},
+		#{cspInfo,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.turing.code.entity.CodeShangpinpinpai">
+		insert into CODE_SHANGPINPINPAI
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="cspId != null">
+				CSP_ID,
+			</if>
+			<if test="cspName != null">
+				CSP_NAME,
+			</if>
+			<if test="cspInfo != null">
+				CSP_INFO,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="cspId != null">
+				#{cspId,jdbcType=VARCHAR},
+			</if>
+			<if test="cspName != null">
+				#{cspName,jdbcType=VARCHAR},
+			</if>
+			<if test="cspInfo != null">
+				#{cspInfo,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.turing.code.entity.CodeShangpinpinpai">
+		update CODE_SHANGPINPINPAI
+		<set>
+			<if test="cspName != null">
+				CSP_NAME = #{cspName,jdbcType=VARCHAR},
+			</if>
+			<if test="cspInfo != null">
+				CSP_INFO = #{cspInfo,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where CSP_ID = #{cspId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.turing.code.entity.CodeShangpinpinpai">
+		update CODE_SHANGPINPINPAI
+		set CSP_NAME = #{cspName,jdbcType=VARCHAR},
+		CSP_INFO = #{cspInfo,jdbcType=VARCHAR}
+		where CSP_ID = #{cspId,jdbcType=VARCHAR}
+	</update>
+</mapper>

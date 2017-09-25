@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.code.mapper.CodeYongpinleixingMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.code.entity.CodeYongpinleixing" >
+    <id column="CYL_ID" property="cylId" jdbcType="VARCHAR" />
+    <result column="CYL_NAME" property="cylName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CYL_ID, CYL_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_YONGPINLEIXING
+    where CYL_ID = #{cylId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_YONGPINLEIXING
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CODE_YONGPINLEIXING
+    where CYL_ID = #{cylId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.code.entity.CodeYongpinleixing" >
+    insert into CODE_YONGPINLEIXING (CYL_ID, CYL_NAME)
+    values (#{cylId,jdbcType=VARCHAR}, #{cylName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.code.entity.CodeYongpinleixing" >
+    insert into CODE_YONGPINLEIXING
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cylId != null" >
+        CYL_ID,
+      </if>
+      <if test="cylName != null" >
+        CYL_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cylId != null" >
+        #{cylId,jdbcType=VARCHAR},
+      </if>
+      <if test="cylName != null" >
+        #{cylName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.code.entity.CodeYongpinleixing" >
+    update CODE_YONGPINLEIXING
+    <set >
+      <if test="cylName != null" >
+        CYL_NAME = #{cylName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CYL_ID = #{cylId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.code.entity.CodeYongpinleixing" >
+    update CODE_YONGPINLEIXING
+    set CYL_NAME = #{cylName,jdbcType=VARCHAR}
+    where CYL_ID = #{cylId,jdbcType=VARCHAR}
+  </update>
+</mapper>

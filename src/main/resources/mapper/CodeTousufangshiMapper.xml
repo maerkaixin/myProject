@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.code.mapper.CodeTousufangshiMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.code.entity.CodeTousufangshi" >
+    <id column="CTF_ID" property="ctfId" jdbcType="VARCHAR" />
+    <result column="CTF_NAME" property="ctfName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CTF_ID, CTF_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_TOUSUFANGSHI
+    where CTF_ID = #{ctfId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_TOUSUFANGSHI
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CODE_TOUSUFANGSHI
+    where CTF_ID = #{ctfId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.code.entity.CodeTousufangshi" >
+    insert into CODE_TOUSUFANGSHI (CTF_ID, CTF_NAME)
+    values (#{ctfId,jdbcType=VARCHAR}, #{ctfName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.code.entity.CodeTousufangshi" >
+    insert into CODE_TOUSUFANGSHI
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ctfId != null" >
+        CTF_ID,
+      </if>
+      <if test="ctfName != null" >
+        CTF_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ctfId != null" >
+        #{ctfId,jdbcType=VARCHAR},
+      </if>
+      <if test="ctfName != null" >
+        #{ctfName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.code.entity.CodeTousufangshi" >
+    update CODE_TOUSUFANGSHI
+    <set >
+      <if test="ctfName != null" >
+        CTF_NAME = #{ctfName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CTF_ID = #{ctfId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.code.entity.CodeTousufangshi" >
+    update CODE_TOUSUFANGSHI
+    set CTF_NAME = #{ctfName,jdbcType=VARCHAR}
+    where CTF_ID = #{ctfId,jdbcType=VARCHAR}
+  </update>
+</mapper>

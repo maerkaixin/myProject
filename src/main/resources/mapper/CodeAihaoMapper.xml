@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.code.mapper.CodeAihaoMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.code.entity.CodeAihao" >
+    <id column="CAH_ID" property="cahId" jdbcType="VARCHAR" />
+    <result column="CAH_NAME" property="cahName" jdbcType="VARCHAR" />
+    <result column="CAH_CODE" property="cahCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CAH_ID, CAH_NAME, CAH_CODE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_AIHAO
+    where CAH_ID = #{cahId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from CODE_AIHAO
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CODE_AIHAO
+    where CAH_ID = #{cahId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.code.entity.CodeAihao" >
+    insert into CODE_AIHAO (CAH_ID, CAH_NAME, CAH_CODE
+      )
+    values (#{cahId,jdbcType=VARCHAR}, #{cahName,jdbcType=VARCHAR}, #{cahCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.code.entity.CodeAihao" >
+    insert into CODE_AIHAO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cahId != null" >
+        CAH_ID,
+      </if>
+      <if test="cahName != null" >
+        CAH_NAME,
+      </if>
+      <if test="cahCode != null" >
+        CAH_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cahId != null" >
+        #{cahId,jdbcType=VARCHAR},
+      </if>
+      <if test="cahName != null" >
+        #{cahName,jdbcType=VARCHAR},
+      </if>
+      <if test="cahCode != null" >
+        #{cahCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.code.entity.CodeAihao" >
+    update CODE_AIHAO
+    <set >
+      <if test="cahName != null" >
+        CAH_NAME = #{cahName,jdbcType=VARCHAR},
+      </if>
+      <if test="cahCode != null" >
+        CAH_CODE = #{cahCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CAH_ID = #{cahId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.code.entity.CodeAihao" >
+    update CODE_AIHAO
+    set CAH_NAME = #{cahName,jdbcType=VARCHAR},
+      CAH_CODE = #{cahCode,jdbcType=VARCHAR}
+    where CAH_ID = #{cahId,jdbcType=VARCHAR}
+  </update>
+</mapper>
