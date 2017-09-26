@@ -32,10 +32,23 @@ public class HyglController {
 	@RequestMapping(value="query")
 	public String queryAll(ModelMap modelMap,HyglHuiyuanPage page){
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
-		List<HyglHuiyuan> list = service.queryAll();
+		List<HyglHuiyuan> list = service.queryAll(page);
 		modelMap.put("pageInfo", new PageInfo<HyglHuiyuan>(list));
 		modelMap.put("page",page);
+		System.out.println("page"+page);
+		List<CodeRuhuifangshi> rhfsList = rhfsService.queryAll();
+		modelMap.put("rhfsList",rhfsList);
 		return "jsp/huiyuan/query_huiyuan";
+	}
+	
+	@RequestMapping(value="srtxQuery")
+	public String srtxQuery(ModelMap modelMap,HyglHuiyuanPage srtxPage){
+		PageHelper.startPage(srtxPage.getPageNum(), srtxPage.getPageSize());
+		List<HyglHuiyuan> list = service.srtxQuery(srtxPage);
+		modelMap.put("srtxPageInfo", new PageInfo<HyglHuiyuan>(list));
+		modelMap.put("srtxPage",srtxPage);
+		System.out.println("srtxPage"+srtxPage);
+		return "jsp/huiyuan/srtx_huiyuan";
 	}
 	
 	@RequestMapping(value="addpage")

@@ -7,14 +7,15 @@ import org.springframework.stereotype.Service;
 
 import com.turing.huiyuan.entity.HyglHuiyuan;
 import com.turing.huiyuan.mapper.HyglHuiyuanMapper;
+import com.turing.huiyuan.page.HyglHuiyuanPage;
 import com.turing.huiyuan.service.IHyglService;
 @Service
 public class HyglServiceImpl implements IHyglService {
 	@Autowired
 	private HyglHuiyuanMapper mapper;
 	@Override
-	public List<HyglHuiyuan> queryAll() {
-		return mapper.queryAll();
+	public List<HyglHuiyuan> queryAll(HyglHuiyuanPage page) {
+		return mapper.queryAll(page);
 	}
 	@Override
 	public HyglHuiyuan selectByPrimaryKey(String id) {
@@ -35,6 +36,13 @@ public class HyglServiceImpl implements IHyglService {
 		for (String string : ids) {
 			mapper.deleteByPrimaryKey(string);
 		}
+	}
+	@Override
+	public List<HyglHuiyuan> srtxQuery(HyglHuiyuanPage page) {
+		if (page!=null && page.getHyName()!=null) {
+			page.setHyNames(page.getHyName().split(" "));;
+		}
+		return mapper.srtxQuery(page);
 	}
 
 }

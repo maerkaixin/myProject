@@ -4,217 +4,222 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class HyglHuiyuan {
-    private String hyId;
+	private String hyId;
 
-    private String crfId;
+	private String crfId;
 
-    private String hyName;
+	private String hyName;
 
-    private String hyNo;
+	private String hyNo;
 
-    private BigDecimal hyAge;
+	private BigDecimal hyAge;
 
-    private String hySex;
+	private String hySex;
 
-    private Date hyBirth;
+	private Date hyBirth;
 
-    private String hyGongzhuodanwei;
+	private String hyGongzhuodanwei;
 
-    private String hyShenfenzheng;
+	private String hyShenfenzheng;
 
-    private String hyZhiye;
+	private String hyZhiye;
 
-    private String hyXuexing;
+	private String hyXuexing;
 
-    private Long hyShengao;
+	private Long hyShengao;
 
-    private Long hyTizhong;
+	private Long hyTizhong;
 
-    private String hyYoubian;
+	private String hyYoubian;
 
-    private String hyEmail;
+	private String hyEmail;
 
-    private String hyHunyinqingkuang;
+	private String hyHunyinqingkuang;
 
-    private Date hyInDate;
+	private Date hyInDate;
 
-    private Date hyOutDate;
+	private Date hyOutDate;
 
-    private String hyPhone;
+	private String hyPhone;
 
-    private String hyInfo;
+	private String hyInfo;
 
-    private String hyPic;
+	private String hyPic;
 
-    private String crfName;
-    
-    public String getHyId() {
-        return hyId;
-    }
+	private String crfName;
+	
+	private Integer tianshu;
 
-    public void setHyId(String hyId) {
-        this.hyId = hyId == null ? null : hyId.trim();
-    }
+	public String getHyId() {
+		return hyId;
+	}
 
-    public String getCrfId() {
-        return crfId;
-    }
+	public void setHyId(String hyId) {
+		this.hyId = hyId == null ? null : hyId.trim();
+	}
 
-    public void setCrfId(String crfId) {
-        this.crfId = crfId == null ? null : crfId.trim();
-    }
+	public String getCrfId() {
+		return crfId;
+	}
 
-    public String getHyName() {
-        return hyName;
-    }
+	public void setCrfId(String crfId) {
+		this.crfId = crfId == null ? null : crfId.trim();
+	}
 
-    public void setHyName(String hyName) {
-        this.hyName = hyName == null ? null : hyName.trim();
-    }
+	public String getHyName() {
+		return hyName;
+	}
 
-    public String getHyNo() {
-        return hyNo;
-    }
+	public void setHyName(String hyName) {
+		this.hyName = hyName == null ? null : hyName.trim();
+	}
 
-    public void setHyNo(String hyNo) {
-        this.hyNo = hyNo == null ? null : hyNo.trim();
-    }
+	public String getHyNo() {
+		return hyNo;
+	}
 
-    public BigDecimal getHyAge() {
-        return hyAge;
-    }
+	public void setHyNo(String hyNo) {
+		this.hyNo = hyNo == null ? null : hyNo.trim();
+	}
 
-    public void setHyAge(BigDecimal hyAge) {
-        this.hyAge = hyAge;
-    }
+	public BigDecimal getHyAge() {
+		return hyAge;
+	}
 
-    public String getHySex() {
-        return hySex;
-    }
+	public void setHyAge(BigDecimal hyAge) {
+		this.hyAge = hyAge;
+	}
 
-    public void setHySex(String hySex) {
-        this.hySex = hySex == null ? null : hySex.trim();
-    }
+	public String getHySex() {
+		return hySex;
+	}
 
-    public Date getHyBirth() {
-        return hyBirth;
-    }
+	public void setHySex(String hySex) {
+		this.hySex = hySex == null ? null : hySex.trim();
+	}
 
-    public void setHyBirth(Date hyBirth) {
-        this.hyBirth = hyBirth;
-    }
+	public Date getHyBirth() {
+		return hyBirth;
+	}
 
-    public String getHyGongzhuodanwei() {
-        return hyGongzhuodanwei;
-    }
+	public void setHyBirth(Date hyBirth) {
+		this.hyBirth = hyBirth;
+	}
 
-    public void setHyGongzhuodanwei(String hyGongzhuodanwei) {
-        this.hyGongzhuodanwei = hyGongzhuodanwei == null ? null : hyGongzhuodanwei.trim();
-    }
+	public String getHyGongzhuodanwei() {
+		return hyGongzhuodanwei;
+	}
 
-    public String getHyShenfenzheng() {
-        return hyShenfenzheng;
-    }
+	public void setHyGongzhuodanwei(String hyGongzhuodanwei) {
+		this.hyGongzhuodanwei = hyGongzhuodanwei == null ? null
+				: hyGongzhuodanwei.trim();
+	}
 
-    public void setHyShenfenzheng(String hyShenfenzheng) {
-        this.hyShenfenzheng = hyShenfenzheng == null ? null : hyShenfenzheng.trim();
-    }
+	public String getHyShenfenzheng() {
+		return hyShenfenzheng;
+	}
 
-    public String getHyZhiye() {
-        return hyZhiye;
-    }
+	public void setHyShenfenzheng(String hyShenfenzheng) {
+		this.hyShenfenzheng = hyShenfenzheng == null ? null : hyShenfenzheng
+				.trim();
+	}
 
-    public void setHyZhiye(String hyZhiye) {
-        this.hyZhiye = hyZhiye == null ? null : hyZhiye.trim();
-    }
+	public String getHyZhiye() {
+		return hyZhiye;
+	}
 
-    public String getHyXuexing() {
-        return hyXuexing;
-    }
+	public void setHyZhiye(String hyZhiye) {
+		this.hyZhiye = hyZhiye == null ? null : hyZhiye.trim();
+	}
 
-    public void setHyXuexing(String hyXuexing) {
-        this.hyXuexing = hyXuexing == null ? null : hyXuexing.trim();
-    }
+	public String getHyXuexing() {
+		return hyXuexing;
+	}
 
-    public Long getHyShengao() {
-        return hyShengao;
-    }
+	public void setHyXuexing(String hyXuexing) {
+		this.hyXuexing = hyXuexing == null ? null : hyXuexing.trim();
+	}
 
-    public void setHyShengao(Long hyShengao) {
-        this.hyShengao = hyShengao;
-    }
+	public Long getHyShengao() {
+		return hyShengao;
+	}
 
-    public Long getHyTizhong() {
-        return hyTizhong;
-    }
+	public void setHyShengao(Long hyShengao) {
+		this.hyShengao = hyShengao;
+	}
 
-    public void setHyTizhong(Long hyTizhong) {
-        this.hyTizhong = hyTizhong;
-    }
+	public Long getHyTizhong() {
+		return hyTizhong;
+	}
 
-    public String getHyYoubian() {
-        return hyYoubian;
-    }
+	public void setHyTizhong(Long hyTizhong) {
+		this.hyTizhong = hyTizhong;
+	}
 
-    public void setHyYoubian(String hyYoubian) {
-        this.hyYoubian = hyYoubian == null ? null : hyYoubian.trim();
-    }
+	public String getHyYoubian() {
+		return hyYoubian;
+	}
 
-    public String getHyEmail() {
-        return hyEmail;
-    }
+	public void setHyYoubian(String hyYoubian) {
+		this.hyYoubian = hyYoubian == null ? null : hyYoubian.trim();
+	}
 
-    public void setHyEmail(String hyEmail) {
-        this.hyEmail = hyEmail == null ? null : hyEmail.trim();
-    }
+	public String getHyEmail() {
+		return hyEmail;
+	}
 
-    public String getHyHunyinqingkuang() {
-        return hyHunyinqingkuang;
-    }
+	public void setHyEmail(String hyEmail) {
+		this.hyEmail = hyEmail == null ? null : hyEmail.trim();
+	}
 
-    public void setHyHunyinqingkuang(String hyHunyinqingkuang) {
-        this.hyHunyinqingkuang = hyHunyinqingkuang == null ? null : hyHunyinqingkuang.trim();
-    }
+	public String getHyHunyinqingkuang() {
+		return hyHunyinqingkuang;
+	}
 
-    public Date getHyInDate() {
-        return hyInDate;
-    }
+	public void setHyHunyinqingkuang(String hyHunyinqingkuang) {
+		this.hyHunyinqingkuang = hyHunyinqingkuang == null ? null
+				: hyHunyinqingkuang.trim();
+	}
 
-    public void setHyInDate(Date hyInDate) {
-        this.hyInDate = hyInDate;
-    }
+	public Date getHyInDate() {
+		return hyInDate;
+	}
 
-    public Date getHyOutDate() {
-        return hyOutDate;
-    }
+	public void setHyInDate(Date hyInDate) {
+		this.hyInDate = hyInDate;
+	}
 
-    public void setHyOutDate(Date hyOutDate) {
-        this.hyOutDate = hyOutDate;
-    }
+	public Date getHyOutDate() {
+		return hyOutDate;
+	}
 
-    public String getHyPhone() {
-        return hyPhone;
-    }
+	public void setHyOutDate(Date hyOutDate) {
+		this.hyOutDate = hyOutDate;
+	}
 
-    public void setHyPhone(String hyPhone) {
-        this.hyPhone = hyPhone == null ? null : hyPhone.trim();
-    }
+	public String getHyPhone() {
+		return hyPhone;
+	}
 
-    public String getHyInfo() {
-        return hyInfo;
-    }
+	public void setHyPhone(String hyPhone) {
+		this.hyPhone = hyPhone == null ? null : hyPhone.trim();
+	}
 
-    public void setHyInfo(String hyInfo) {
-        this.hyInfo = hyInfo == null ? null : hyInfo.trim();
-    }
+	public String getHyInfo() {
+		return hyInfo;
+	}
 
-    public String getHyPic() {
-        return hyPic;
-    }
+	public void setHyInfo(String hyInfo) {
+		this.hyInfo = hyInfo == null ? null : hyInfo.trim();
+	}
 
-    public void setHyPic(String hyPic) {
-        this.hyPic = hyPic == null ? null : hyPic.trim();
-    }
+	public String getHyPic() {
+		return hyPic;
+	}
+
+	public void setHyPic(String hyPic) {
+		this.hyPic = hyPic == null ? null : hyPic.trim();
+	}
 
 	public String getCrfName() {
 		return crfName;
@@ -237,5 +242,13 @@ public class HyglHuiyuan {
 				+ hyInDate + ", hyOutDate=" + hyOutDate + ", hyPhone="
 				+ hyPhone + ", hyInfo=" + hyInfo + ", hyPic=" + hyPic
 				+ ", crfName=" + crfName + "]";
+	}
+
+	public Integer getTianshu() {
+		return tianshu;
+	}
+
+	public void setTianshu(Integer tianshu) {
+		this.tianshu = tianshu;
 	}
 }

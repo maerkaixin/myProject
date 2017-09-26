@@ -12,7 +12,7 @@
 		
 		<div class="container">
 			<hr />
-			<form name="queryForm" class="form-horizontal text-center" action="<%=ctx %>/hy/query.action?pageNo=1" method="post">
+			<form name="queryForm" class="form-horizontal text-center" action="<%=ctx %>/huiyuan/query.action?pageNo=1" method="post">
 				<div class="container">
 					<div class="form-group">
 						<label class="control-label col-sm-2 col-md-2">会员名称:</label>
@@ -44,7 +44,7 @@
 						<div class="col-md-7 col-sm-7">
 							<div class="input-group">
 								<div class="input-group date form_date" data-date-format="yyyy-mm-dd" >
-				                    <input class="form-control" id="showTime" name="hyInDate" value="<fmt:formatDate value="${page.hyInDate }"/>" type="text"  readonly>
+				                    <input class="form-control" id="showTime" name="date1" value="${page.date1 }" type="text"  readonly>
 				                    <span class="input-group-addon"><span  onclick="clearTime(this)" class="glyphicon glyphicon-remove"></span></span>
 									<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 				                </div>
@@ -52,7 +52,7 @@
 									至
 								</div>
 								<div class="input-group date form_date"  data-date-format="yyyy-mm-dd">
-				                    <input class="form-control" name="hyDateTo" id="showTime1" value="<fmt:formatDate value="${page.hyDateTo }"/>" type="text" readonly>
+				                    <input class="form-control" name="date2" id="showTime1" value="${page.date2 }"  type="text" readonly>
 				                    <span class="input-group-addon"><span  onclick="clearTime(this)" class="glyphicon glyphicon-remove"></span></span>
 									<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 				                </div>
@@ -61,28 +61,32 @@
 					</div>
 					<%
 						HyglHuiyuanPage page1=(HyglHuiyuanPage)request.getAttribute("page");
-						List xxList=null; 
-						if(xxList==null){
-							xxList=new ArrayList();
+						String[] xxs=page1.getHyXuexing(); 
+						if(xxs==null){
+							xxs=new String[]{};
 						} 
+						List<String> xxList2 = new ArrayList<String>();
+						for(int i=0 ;i<xxs.length;i++){
+							xxList2.add(xxs[i]);
+						}
 					%>
 					<div class="form-group">
 						<label class="control-label col-sm-2 col-md-2">会员血型:</label>
 						<div class="col-md-8 col-sm-8 text-left" >
 							<label class="checkbox-inline">
-								<input type="checkbox"  name="hyXuexing"  value="A" <%=xxList.contains("A")?"checked":"" %>>A型
+								<input type="checkbox"  name="hyXuexing"  value="A" <%=xxList2.contains("A")?"checked":"" %>>A型
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox"  name="hyXuexing" value="B" <%=xxList.contains("B")?"checked":"" %>>B型
+								<input type="checkbox"  name="hyXuexing" value="B" <%=xxList2.contains("B")?"checked":"" %>>B型
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox"  name="hyXuexing"  value="O" <%=xxList.contains("O")?"checked":"" %>>O型
+								<input type="checkbox"  name="hyXuexing"  value="O" <%=xxList2.contains("O")?"checked":"" %>>O型
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox"  name="hyXuexing"  value="AB" <%=xxList.contains("AB")?"checked":"" %>>AB型
+								<input type="checkbox"  name="hyXuexing"  value="AB" <%=xxList2.contains("AB")?"checked":"" %>>AB型
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox"  name="hyXuexing"  value="Other" <%=xxList.contains("Other")?"checked":"" %>>其他
+								<input type="checkbox"  name="hyXuexing"  value="Other" <%=xxList2.contains("Other")?"checked":"" %>>其他
 							</label>
 							<input type="hidden" name="hyXuexing">
     					</div>

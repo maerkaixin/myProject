@@ -36,6 +36,75 @@
     from HYGL_HUIYUAN
     where HY_ID = #{hyId,jdbcType=VARCHAR}
   </select>
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.turing.huiyuan.page.HyglHuiyuanPage" >
+   select hy_id, h.crf_id, hy_name, hy_no, hy_age, hy_sex, hy_birth, hy_gongzhuodanwei, hy_shenfenzheng, 
+   hy_zhiye, hy_xuexing, hy_shengao, hy_tizhong, hy_youbian, hy_email, hy_hunyinqingkuang, hy_in_date, hy_out_date,
+    hy_phone, hy_info, hy_pic,c.crf_name from hygl_huiyuan h left join code_ruhuifangshi c on h.crf_id = c.crf_id 
+    <where>
+    	<if test="hyName!=null and hyName!='' ">
+    		and hy_name like concat('%',concat(#{hyName},'%'))
+    	</if>
+    	<if test="hyNo!=null and hyNo!='' ">
+    		and hy_no like concat('%',concat(#{hyNo},'%'))
+    	</if>
+    	<if test="hyPhone!=null and hyPhone!='' ">
+    		and hy_phone like concat('%',concat(#{hyPhone},'%'))
+    	</if>
+    	<if test="crfId!=null and crfId!='' ">
+    		and h.crf_id =  #{crfId} 
+    	</if>
+    	<if test="date1!=null and date1!='' ">
+    		and hy_in_date >= to_date(#{date1},'yyyy-mm-dd')
+    	</if>
+    	<if test="date2!=null and date2!='' ">
+    		<![CDATA[ and hy_out_date  <= to_date(#{date2},'yyyy-mm-dd') ]]>
+    	</if>
+    	<if test="hyXuexing!=null ">
+    		<foreach collection="hyXuexing" item="t" separator="," open=" and hy_xuexing in (" close=")">
+    			#{t}
+    		</foreach>
+    	</if>
+    	
+    </where>
+    order by hy_name
+  </select>
+  <select id="srtxQuery" resultMap="BaseResultMap" parameterType="com.turing.huiyuan.page.HyglHuiyuanPage" >
+  select hy_name,h.hy_no,hy_birth,h.hy_phone,h.hy_email,t.tianshu
+	from hygl_huiyuan h inner join
+	(
+	   <![CDATA[ select to_char(sysdate+rownum-1,'mm-dd')riqi,rownum-1 tianshu
+	      from dual
+	      connect by  rownum  < 15]]>
+	)t
+	on to_char(h.hy_birth,'mm-dd') = t.riqi
+	    <where>
+	    <if test="hyNames==null">
+	    	<if test="hyName!=null and hyName!='' ">
+	    		and hy_name like concat('%',concat(#{hyName},'%'))
+	    	</if>
+	    </if>
+    	<if test="hyNames!=null">
+    		<foreach collection="hyNames" item="t" open=" and ( " separator=" or " close=") " >
+    			<if test="t!=''">
+    			 	hy_name like concat('%',concat(#{t},'%'))  
+    			</if>
+    		</foreach>
+    	</if>
+    	<if test="hyNo!=null and hyNo!='' ">
+    		and hy_no like concat('%',concat(#{hyNo},'%'))
+    	</if>
+    	<if test="hyPhone!=null and hyPhone!='' ">
+    		and hy_phone like concat('%',concat(#{hyPhone},'%'))
+    	</if>
+    	<if test="date1!=null and date1!='' ">
+    		and hy_birth >= to_date(#{date1},'yyyy-mm-dd')
+    	</if>
+    	<if test="date2!=null and date2!='' ">
+    		<![CDATA[ and hy_birth  <= to_date(#{date2},'yyyy-mm-dd') ]]>
+    	</if>
+    </where>
+	order by t.tianshu 
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from HYGL_HUIYUAN
     where HY_ID = #{hyId,jdbcType=VARCHAR}
