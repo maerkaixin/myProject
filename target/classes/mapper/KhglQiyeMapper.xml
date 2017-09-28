@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.khgl.mapper.KhglQiyeMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.khgl.entity.KhglQiye" >
+    <id column="QY_ID" property="qyId" jdbcType="VARCHAR" />
+    <result column="CXY_ID" property="cxyId" jdbcType="VARCHAR" />
+    <result column="CQX_ID" property="cqxId" jdbcType="VARCHAR" />
+    <result column="CB_ID" property="cbId" jdbcType="VARCHAR" />
+    <result column="CHL_ID" property="chlId" jdbcType="VARCHAR" />
+    <result column="QY_NO" property="qyNo" jdbcType="VARCHAR" />
+    <result column="QY_NAME" property="qyName" jdbcType="VARCHAR" />
+    <result column="QY_PHONE" property="qyPhone" jdbcType="VARCHAR" />
+    <result column="QY_HOME" property="qyHome" jdbcType="VARCHAR" />
+    <result column="QY_BANK_NO" property="qyBankNo" jdbcType="VARCHAR" />
+    <result column="QY_ADDS" property="qyAdds" jdbcType="VARCHAR" />
+    <result column="QY_LEADER" property="qyLeader" jdbcType="VARCHAR" />
+    <result column="QY_TYPE" property="qyType" jdbcType="VARCHAR" />
+    <result column="QY_INFO" property="qyInfo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    QY_ID, CXY_ID, CQX_ID, CB_ID, CHL_ID, QY_NO, QY_NAME, QY_PHONE, QY_HOME, QY_BANK_NO, 
+    QY_ADDS, QY_LEADER, QY_TYPE, QY_INFO
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from KHGL_QIYE
+    where QY_ID = #{qyId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAllWithList" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from KHGL_QIYE
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from KHGL_QIYE
+    where QY_ID = #{qyId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.khgl.entity.KhglQiye" >
+    insert into KHGL_QIYE (QY_ID, CXY_ID, CQX_ID, 
+      CB_ID, CHL_ID, QY_NO, 
+      QY_NAME, QY_PHONE, QY_HOME, 
+      QY_BANK_NO, QY_ADDS, QY_LEADER, 
+      QY_TYPE, QY_INFO)
+    values (#{qyId,jdbcType=VARCHAR}, #{cxyId,jdbcType=VARCHAR}, #{cqxId,jdbcType=VARCHAR}, 
+      #{cbId,jdbcType=VARCHAR}, #{chlId,jdbcType=VARCHAR}, #{qyNo,jdbcType=VARCHAR}, 
+      #{qyName,jdbcType=VARCHAR}, #{qyPhone,jdbcType=VARCHAR}, #{qyHome,jdbcType=VARCHAR}, 
+      #{qyBankNo,jdbcType=VARCHAR}, #{qyAdds,jdbcType=VARCHAR}, #{qyLeader,jdbcType=VARCHAR}, 
+      #{qyType,jdbcType=VARCHAR}, #{qyInfo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.khgl.entity.KhglQiye" >
+    insert into KHGL_QIYE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="qyId != null" >
+        QY_ID,
+      </if>
+      <if test="cxyId != null" >
+        CXY_ID,
+      </if>
+      <if test="cqxId != null" >
+        CQX_ID,
+      </if>
+      <if test="cbId != null" >
+        CB_ID,
+      </if>
+      <if test="chlId != null" >
+        CHL_ID,
+      </if>
+      <if test="qyNo != null" >
+        QY_NO,
+      </if>
+      <if test="qyName != null" >
+        QY_NAME,
+      </if>
+      <if test="qyPhone != null" >
+        QY_PHONE,
+      </if>
+      <if test="qyHome != null" >
+        QY_HOME,
+      </if>
+      <if test="qyBankNo != null" >
+        QY_BANK_NO,
+      </if>
+      <if test="qyAdds != null" >
+        QY_ADDS,
+      </if>
+      <if test="qyLeader != null" >
+        QY_LEADER,
+      </if>
+      <if test="qyType != null" >
+        QY_TYPE,
+      </if>
+      <if test="qyInfo != null" >
+        QY_INFO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="qyId != null" >
+        #{qyId,jdbcType=VARCHAR},
+      </if>
+      <if test="cxyId != null" >
+        #{cxyId,jdbcType=VARCHAR},
+      </if>
+      <if test="cqxId != null" >
+        #{cqxId,jdbcType=VARCHAR},
+      </if>
+      <if test="cbId != null" >
+        #{cbId,jdbcType=VARCHAR},
+      </if>
+      <if test="chlId != null" >
+        #{chlId,jdbcType=VARCHAR},
+      </if>
+      <if test="qyNo != null" >
+        #{qyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="qyName != null" >
+        #{qyName,jdbcType=VARCHAR},
+      </if>
+      <if test="qyPhone != null" >
+        #{qyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="qyHome != null" >
+        #{qyHome,jdbcType=VARCHAR},
+      </if>
+      <if test="qyBankNo != null" >
+        #{qyBankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="qyAdds != null" >
+        #{qyAdds,jdbcType=VARCHAR},
+      </if>
+      <if test="qyLeader != null" >
+        #{qyLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="qyType != null" >
+        #{qyType,jdbcType=VARCHAR},
+      </if>
+      <if test="qyInfo != null" >
+        #{qyInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.khgl.entity.KhglQiye" >
+    update KHGL_QIYE
+    <set >
+      <if test="cxyId != null" >
+        CXY_ID = #{cxyId,jdbcType=VARCHAR},
+      </if>
+      <if test="cqxId != null" >
+        CQX_ID = #{cqxId,jdbcType=VARCHAR},
+      </if>
+      <if test="cbId != null" >
+        CB_ID = #{cbId,jdbcType=VARCHAR},
+      </if>
+      <if test="chlId != null" >
+        CHL_ID = #{chlId,jdbcType=VARCHAR},
+      </if>
+      <if test="qyNo != null" >
+        QY_NO = #{qyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="qyName != null" >
+        QY_NAME = #{qyName,jdbcType=VARCHAR},
+      </if>
+      <if test="qyPhone != null" >
+        QY_PHONE = #{qyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="qyHome != null" >
+        QY_HOME = #{qyHome,jdbcType=VARCHAR},
+      </if>
+      <if test="qyBankNo != null" >
+        QY_BANK_NO = #{qyBankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="qyAdds != null" >
+        QY_ADDS = #{qyAdds,jdbcType=VARCHAR},
+      </if>
+      <if test="qyLeader != null" >
+        QY_LEADER = #{qyLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="qyType != null" >
+        QY_TYPE = #{qyType,jdbcType=VARCHAR},
+      </if>
+      <if test="qyInfo != null" >
+        QY_INFO = #{qyInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where QY_ID = #{qyId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.khgl.entity.KhglQiye" >
+    update KHGL_QIYE
+    set CXY_ID = #{cxyId,jdbcType=VARCHAR},
+      CQX_ID = #{cqxId,jdbcType=VARCHAR},
+      CB_ID = #{cbId,jdbcType=VARCHAR},
+      CHL_ID = #{chlId,jdbcType=VARCHAR},
+      QY_NO = #{qyNo,jdbcType=VARCHAR},
+      QY_NAME = #{qyName,jdbcType=VARCHAR},
+      QY_PHONE = #{qyPhone,jdbcType=VARCHAR},
+      QY_HOME = #{qyHome,jdbcType=VARCHAR},
+      QY_BANK_NO = #{qyBankNo,jdbcType=VARCHAR},
+      QY_ADDS = #{qyAdds,jdbcType=VARCHAR},
+      QY_LEADER = #{qyLeader,jdbcType=VARCHAR},
+      QY_TYPE = #{qyType,jdbcType=VARCHAR},
+      QY_INFO = #{qyInfo,jdbcType=VARCHAR}
+    where QY_ID = #{qyId,jdbcType=VARCHAR}
+  </update>
+</mapper>

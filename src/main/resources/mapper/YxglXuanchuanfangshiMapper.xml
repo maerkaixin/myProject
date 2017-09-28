@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.information.mapper.YxglXuanchuanfangshiMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.information.entity.YxglXuanchuanfangshi" >
+    <id column="XCFS_ID" property="xcfsId" jdbcType="VARCHAR" />
+    <result column="XCFS_NAME" property="xcfsName" jdbcType="VARCHAR" />
+    <result column="XCFS_INFO" property="xcfsInfo" jdbcType="VARCHAR" />
+    <result column="XCFS_JIAGE" property="xcfsJiage" jdbcType="DECIMAL" />
+    <result column="XCFS_XIAOGUO" property="xcfsXiaoguo" jdbcType="VARCHAR" />
+    <result column="XCFS_LXR" property="xcfsLxr" jdbcType="VARCHAR" />
+    <result column="XCFS_PHONE" property="xcfsPhone" jdbcType="VARCHAR" />
+    <result column="XCFS_IN_DATE" property="xcfsInDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    XCFS_ID, XCFS_NAME, XCFS_INFO, XCFS_JIAGE, XCFS_XIAOGUO, XCFS_LXR, XCFS_PHONE, XCFS_IN_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from YXGL_XUANCHUANFANGSHI
+    where XCFS_ID = #{xcfsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from YXGL_XUANCHUANFANGSHI
+    where XCFS_ID = #{xcfsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.information.entity.YxglXuanchuanfangshi" >
+    insert into YXGL_XUANCHUANFANGSHI (XCFS_ID, XCFS_NAME, XCFS_INFO, 
+      XCFS_JIAGE, XCFS_XIAOGUO, XCFS_LXR, 
+      XCFS_PHONE, XCFS_IN_DATE)
+    values (#{xcfsId,jdbcType=VARCHAR}, #{xcfsName,jdbcType=VARCHAR}, #{xcfsInfo,jdbcType=VARCHAR}, 
+      #{xcfsJiage,jdbcType=DECIMAL}, #{xcfsXiaoguo,jdbcType=VARCHAR}, #{xcfsLxr,jdbcType=VARCHAR}, 
+      #{xcfsPhone,jdbcType=VARCHAR}, #{xcfsInDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.information.entity.YxglXuanchuanfangshi" >
+    insert into YXGL_XUANCHUANFANGSHI
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="xcfsId != null" >
+        XCFS_ID,
+      </if>
+      <if test="xcfsName != null" >
+        XCFS_NAME,
+      </if>
+      <if test="xcfsInfo != null" >
+        XCFS_INFO,
+      </if>
+      <if test="xcfsJiage != null" >
+        XCFS_JIAGE,
+      </if>
+      <if test="xcfsXiaoguo != null" >
+        XCFS_XIAOGUO,
+      </if>
+      <if test="xcfsLxr != null" >
+        XCFS_LXR,
+      </if>
+      <if test="xcfsPhone != null" >
+        XCFS_PHONE,
+      </if>
+      <if test="xcfsInDate != null" >
+        XCFS_IN_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="xcfsId != null" >
+        #{xcfsId,jdbcType=VARCHAR},
+      </if>
+      <if test="xcfsName != null" >
+        #{xcfsName,jdbcType=VARCHAR},
+      </if>
+      <if test="xcfsInfo != null" >
+        #{xcfsInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="xcfsJiage != null" >
+        #{xcfsJiage,jdbcType=DECIMAL},
+      </if>
+      <if test="xcfsXiaoguo != null" >
+        #{xcfsXiaoguo,jdbcType=VARCHAR},
+      </if>
+      <if test="xcfsLxr != null" >
+        #{xcfsLxr,jdbcType=VARCHAR},
+      </if>
+      <if test="xcfsPhone != null" >
+        #{xcfsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="xcfsInDate != null" >
+        #{xcfsInDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.information.entity.YxglXuanchuanfangshi" >
+    update YXGL_XUANCHUANFANGSHI
+    <set >
+      <if test="xcfsName != null" >
+        XCFS_NAME = #{xcfsName,jdbcType=VARCHAR},
+      </if>
+      <if test="xcfsInfo != null" >
+        XCFS_INFO = #{xcfsInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="xcfsJiage != null" >
+        XCFS_JIAGE = #{xcfsJiage,jdbcType=DECIMAL},
+      </if>
+      <if test="xcfsXiaoguo != null" >
+        XCFS_XIAOGUO = #{xcfsXiaoguo,jdbcType=VARCHAR},
+      </if>
+      <if test="xcfsLxr != null" >
+        XCFS_LXR = #{xcfsLxr,jdbcType=VARCHAR},
+      </if>
+      <if test="xcfsPhone != null" >
+        XCFS_PHONE = #{xcfsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="xcfsInDate != null" >
+        XCFS_IN_DATE = #{xcfsInDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where XCFS_ID = #{xcfsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.information.entity.YxglXuanchuanfangshi" >
+    update YXGL_XUANCHUANFANGSHI
+    set XCFS_NAME = #{xcfsName,jdbcType=VARCHAR},
+      XCFS_INFO = #{xcfsInfo,jdbcType=VARCHAR},
+      XCFS_JIAGE = #{xcfsJiage,jdbcType=DECIMAL},
+      XCFS_XIAOGUO = #{xcfsXiaoguo,jdbcType=VARCHAR},
+      XCFS_LXR = #{xcfsLxr,jdbcType=VARCHAR},
+      XCFS_PHONE = #{xcfsPhone,jdbcType=VARCHAR},
+      XCFS_IN_DATE = #{xcfsInDate,jdbcType=TIMESTAMP}
+    where XCFS_ID = #{xcfsId,jdbcType=VARCHAR}
+  </update>
+</mapper>

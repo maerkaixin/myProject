@@ -1,0 +1,184 @@
+1.什么是Mybatis
+答:	它是封装了JDBC，对关系型数据库进行持久化操作的一个持久层框架。
+
+2.Mybatis配置文件包括哪些内容
+3.Mybatis配置文件中的映射声明是做什么用的
+4.Mapped Statements包含哪些信息
+5.Mybatis的工作流程是什么
+答:	1)读取配置文件，加载连库信息，和加载sql映射文件。
+	加载sql映射文件中的各个节点，然后把每个节点放到一个MappedStatement对象中所有的mappedStatement对象组成了一个				MappedStatements集合MappedStatement对象里包含了（sql语句，sql的id值，参数类型和结果类型）
+	2) 根据读取的配置信息，创建一个session工厂.
+	3) 打开一个session
+	4) 用session对数据库进行持久化操作。
+	5) 事务提交(但是，如果前面的代码有异常，则运行事务的回滚)
+	6) 关闭session
+
+6.Mybatis与jdbc有哪些区别
+答;	mybatis对jdbc进行了封装,mybatis开发效率高利于项目的管理,jdbc性能更高
+
+7.映射文件中resultMap节点是做什么用的，有哪些属性查询的结果集做映射封装
+8.resultMap与resultType的区别
+答:	resultMap 执行查询的sql后，用于结果映射封装用的。
+	resultType 执行查询的sql后，直接指定结果的类型。
+
+9，mybatis中#{}和${}的区别？
+答:	#{}用于预编译传参 ${}用于字符串拼接
+
+10，说说常用的动态 SQL语句？
+答:	用于条件查询的where
+	用于判断的if
+	用于添加前缀和后缀，去掉前缀和后缀用的trim
+	用于修改的set
+	用于集合迭代的foreach
+	用于多项选择的choose标签
+11.Mybatis中，如果要让一个mapper接口和一个映射文件绑定，需要如何配置
+答:	把mapper接口的全路径，放到sql映射文件的名字空间里。
+
+12.Mybatis中，使用mapper接口实现持久化有几种方式
+答:	注解式 ，用@注解来写sql
+	声明式，在xml里写sql
+	注意：sql只能写在一个地方，要么写在mapper接口里，要么写在xml文件里，不能都写
+
+13.Mybatis中，mapper接口的方法的入参有没有要求
+答: 	有,如果传了两个以上的参数,则必须用注解来接值
+
+14.动态SQL中trim的用法
+答:	添加前后缀 和去掉前后缀
+
+15.动态SQL中foreach的用法
+
+16.mapper接口的注解式写法可以用动态SQL么，怎么写
+答:	不可以 
+
+17.什么是spring
+答:	1),Spring是一个轻量级的IOC和AOP的非侵入式容器框架
+	2)、Spring提供对持久层（Persistence）、事物（Transcation）等的支持。
+	3)、Spring提供MVC Web框架的实现，并对一些常用的企业服务API（Application Interface）提供一致的模型封装。
+	4)、Spring提供了对现存的各种框架（Struts、JSF、Hibernate、Ibatis、Webwork,Mybatis等）相整合的方案。
+	5),总之，Spring是一个全方位的应用程序框架。
+
+18.什么是IOC
+答:	Inversion of Control 控制反转
+	就是容器控制程序之间的关系，而非传统实现中，由程序代码直接操控。控制权由应用代码中转到了外部容器，控制权发生了转移,即控制反转.
+
+19.什么是DI
+答: 	Dependency Injection 依赖注入
+	注入(  给属性赋值 ) 
+	所谓依赖注入，
+	即组件之间的依赖关系由容器(spring框架)在运行期决定，
+	形象的来说，即由容器动态的将某种依赖关系注入到组件之中。
+
+20.DI有几种方式
+答:	setter注入(设值注入) :  调用类中的属性的set方法完成的注入,即setter注入,且必须具有无参构造器
+	构造注入 : 必须具有有参的构造器.
+
+21.spring的作用域有哪些
+答:	单例模式  singleton
+	原型模式	prototype
+	----------------------------------------------------web环境------------------------
+	一次请求	request
+	一次会话	session
+	全局会话,全局作用域	application
+	全局会话	global session
+
+22.spring中自动注入有几种方式
+答:	(两个方式, 声明式  注解式)
+	声明式 的4种用法
+	1) byName 在容器中找跟需要注入的属性名,同名的组件
+		如果 <property name="yg" ref="yg"></property>  (需要注入的属性名和组件的id值相等.)
+		则 autowire="byName"
+	2) byType  在容器中找,跟需要注入的属性同类型的组件,且必须唯一.
+	3) constructor   需要注入的类里,需要一个有参的构造器.
+		默认跟byType 一样
+		先按照byType进行自动注入,如果无法完成注入,则用byName方式完成自动注入.
+	4) default  跟父节点用同一种注入方式
+		例如,父节点 写成 default-autowire="byType"
+		则,如果子节点写成 autowire="default", 则表示子节点,用的就是byType
+	注解式的用法,
+	1,需要spring启动注解的驱动. <context:annotation-config></context:annotation-config>
+	2,@Autowired 可以把注解放在属性上面,也可以放在set方法上面,也可以放在构造函数上面
+	3,@Resource
+
+23.spring的注解有哪些？有什么用
+答:	@Controller,把当前类注册为控制层
+	@ReuqestMapping(“/student”) 放在类上面,给类设置一个请求名, 放在方法上面,给方法设置一个请求名
+	@Service 放在类上面,则注册了一个模型层到容器中
+	@Autowired 自动完成依赖注入
+	@Scope 设置作用域
+24.单例模式与原型模式的区别
+答	单例模式是spring容器在启动时,就会实例化组件
+	原型模式是每次调用这个组件的时候,才回去实例化它.
+
+25.什么是springMVC
+答:	spring的一个模块,基于MVC开发模式的框架.
+
+26.springMVC从请求到响应的流程是怎样的
+
+
+27.springMVC如何实现转页
+答:	内部转 : return "jsp/student/list_student";
+	重定向: return "redirect:/student/query.action"; 或者 return "redirect:query.action";
+
+28.springMVC如何实现接传值
+答:	1) 传统方式 
+	String xxx  = request.getParameter(“xxx”);
+	String[]  xxx  = request.getParameterValues(“xxx”);
+	2) 直接在方法的()里接值即可.
+		public String save( String name, String pwd){   
+		public String del(String[] ids){
+	3)太多值需要接时,存放到对象里
+		public String save( Student st){   
+
+29.@requestMapping注解的作用
+答:	放在类上面,给类设置一个请求名, 放在方法上面,给方法设置一个请求名
+30.springMVC与spring的区别
+答:	pringMVC是基于spring开发的,是spring的一个模块
+	没有spring就没有springMVC
+
+31.springMVC与MVC的区别
+答:	springMVC是spring的一个模块,基于mvc开发模式的一个框架
+	与mvc的区别是重新定义了接值方式,传值方式,转向方式
+
+32.什么是连接池，连接池的作用
+答:	创建并管理数据库连接的一个缓冲池技术.
+	对数据库的连接做统一管理,分给不同的线程使用,当项目启动时,根据参数配置,提前创建一些连接,当连接耗尽时,再创建一些连接,当有大量空		连接时,可以关闭一些连接.
+
+33.在web环境中，spring配置文件默认放在哪里，叫什么
+答:	WEB-INFO文件夹下 叫applicationContext.xml
+
+34.spring与mybatis如何整合
+答:	1),导入Spring的jar包,Mybatis的jar包,Mybatis和Spring合用的一个jar包
+	2), 在web.xml里添加启动spring的监听器,并创建spring的配置文件
+	3), 在 spring的配置文件里,添加数据源,可以用连接池管理.
+	4), 添加一个组件,来管理mybatis,组件的名一般叫SqlSessionFactory
+	5),把数据源注入 给SqlSessionFactory
+	6),设置sql映射文件的扫描路径
+	7),设置一个mapper接口的扫描路径
+
+35.SSM搭建后，页面通过post方式提交数据有中文乱码问题，如何解决
+答:	在web.xml里添加一个过滤器,做全项目的接值和传值的编码统一
+
+36.在web项目中如何启动spring
+答:	1,导入spring的jar包
+	2,在web.xml里添加启动spring的监听器
+	3,在WEB-INFO下建立spring的配置文件 applicationContext.xml
+
+37.SSM框架指的是哪几个框架
+答:	spring springMVC Mybatis
+
+38.SSM框架整合时，spring和springMVC配置文件名是否可以修改
+答: 	可以修改 需要在web.xml文件夹下配置一下
+
+39.oracle分页的写法
+
+40.springMVC中，如何在特定session中声明一个变量
+答:	在类上用@sessionAttributes()来声明一个变量 
+
+41.springMVC中，如何将接收的变量与特定session中的对象进行绑定
+答:	在变量前写注解@ModelAttribute()进行绑定
+
+42.springMVC中，增加或修改执行后怎么停留在当前页
+答:	用注解@SessionAttributes()和ModelMap合用,把分页对象,存储到session中.
+
+43.springMVC中，如何实现通过点击左侧菜单栏跳转到第一页
+答:	在发请求时，拼接一个参数pageNum=1

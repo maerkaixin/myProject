@@ -61,5 +61,15 @@ public class WxController {
 		}	
 		return "jsp/information/wx/page_wx";
 	}
+	@RequestMapping(value="save")
+	public String save(GdzcWeixiu wx){
+		service.save(wx);
+		return "redirect:query.action";
+	}
+	@RequestMapping(value="delete")
+	public String delete(String ids[]){
+		service.delete(ids);
+		return "redirect:query.action";
+	}
 
 }

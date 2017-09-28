@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.information.mapper.KcglGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.information.entity.KcglGoods" >
+    <id column="GOODS_ID" property="goodsId" jdbcType="VARCHAR" />
+    <result column="GOODS_NO" property="goodsNo" jdbcType="VARCHAR" />
+    <result column="GOODS_MA" property="goodsMa" jdbcType="VARCHAR" />
+    <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+    <result column="GOODS_CHANDI" property="goodsChandi" jdbcType="VARCHAR" />
+    <result column="GOODS_JIAGE" property="goodsJiage" jdbcType="DECIMAL" />
+    <result column="GOODS_MIANJIA" property="goodsMianjia" jdbcType="DECIMAL" />
+    <result column="GOODS_MAX" property="goodsMax" jdbcType="DECIMAL" />
+    <result column="GOODS_MIN" property="goodsMin" jdbcType="DECIMAL" />
+    <result column="QY_ID" property="qyId" jdbcType="VARCHAR" />
+    <result column="CSD_ID" property="csdId" jdbcType="VARCHAR" />
+    <result column="CSP_ID" property="cspId" jdbcType="VARCHAR" />
+    <result column="CSL_ID" property="cslId" jdbcType="VARCHAR" />
+    <result column="GOODS_STATE" property="goodsState" jdbcType="VARCHAR" />
+    <result column="CA_SHI_ID" property="caShiId" jdbcType="VARCHAR" />
+    <result column="CA_SHENG_ID" property="caShengId" jdbcType="VARCHAR" />
+    
+    <result column="qy_name" property="qyName" jdbcType="VARCHAR" />
+    <result column="csd_name" property="csdName" jdbcType="VARCHAR" />
+    <result column="csp_name" property="cspName" jdbcType="VARCHAR" />
+    <result column="csl_name" property="cslName" jdbcType="VARCHAR" />
+    <result column="shiName" property="shiName" jdbcType="VARCHAR" />
+    <result column="shengName" property="shengName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    GOODS_ID, GOODS_NO, GOODS_MA, GOODS_NAME, GOODS_CHANDI, GOODS_JIAGE, GOODS_MIANJIA, 
+    GOODS_MAX, GOODS_MIN, QY_ID, CSD_ID, CSP_ID, CSL_ID, GOODS_STATE, CA_SHI_ID, CA_SHENG_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from KCGL_GOODS
+    where GOODS_ID = #{goodsId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.turing.information.page.GoodsPage" >
+	  select goods_id, goods_no, goods_ma, goods_name, goods_chandi, goods_jiage, goods_mianjia, goods_max, goods_min,
+		 kg.qy_id, kg.csd_id, kg.csp_id, kg.csl_id, goods_state, kg.ca_shi_id, kg.ca_sheng_id ,
+		 kq.qy_name,spdw.csd_name,sppp.csp_name,splx.csl_name,shi.ca_name shiName,sheng.ca_name shengName
+		 from kcgl_goods kg
+		 left join khgl_qiye kq on kg.qy_id = kq.qy_id 
+		 left join code_shangpindanwei spdw on kg.csd_id = spdw.csd_name 
+		 left join code_shangpinpinpai sppp on kg.csp_id = sppp.csp_id
+		 left join code_shangpinleixing splx on kg.csl_id = splx.csl_id 
+		 left join code_adds shi on kg.ca_shi_id = shi.ca_id
+		 left join code_adds sheng on kg.ca_sheng_id = sheng.ca_id
+  		 <where>
+  		 	goods_state='A'
+			<if test="goodsName!=null and goodsName !='' ">
+				and kg.goods_name like concat('%',concat(#{goodsName},'%'))
+			</if>
+			<if test="goodsNo!=null and goodsNo !='' ">
+				and kg.goods_no like concat('%',concat(#{goodsNo},'%'))
+			</if>
+			<if test="goodsMa!=null and goodsMa !='' ">
+				and kg.goods_ma like concat('%',concat(#{goodsMa},'%'))
+			</if>
+			<if test="qyId!=null and qyId !=''">
+				and kg.qy_id = #{qyId}
+			</if>
+			<if test="csdId!=null and csdId !=''">
+				and kg.csd_id = #{csdId}
+			</if>
+			<if test="cspId!=null and cspId !=''">
+				and kg.csp_id = #{cspId}
+			</if>
+			<if test="cslId!=null and cslId !=''">
+				and kg.csl_id = #{cslId}
+			</if>
+			
+			<if test="goodsMjFrom!=null and goodsMjFrom !=''">
+				and kg.goods_mianjia >= #{goodsMjFrom}
+			</if>
+			<if test="goodsMjTo!=null and goodsMjTo !=''">
+				<![CDATA[ and kg.goods_mianjia <= #{goodsMjTo} ]]>
+			</if>
+  		 </where>
+  		order by goods_name desc
+  </select>
+  
+  <update id="updateStatsById"  parameterType="java.lang.String" >
+  	update kcgl_goods set goods_state = 'B' where goods_id =#{id}
+  </update>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from KCGL_GOODS
+    where GOODS_ID = #{goodsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.information.entity.KcglGoods" >
+    insert into KCGL_GOODS (GOODS_ID, GOODS_NO, GOODS_MA, 
+      GOODS_NAME, GOODS_CHANDI, GOODS_JIAGE, 
+      GOODS_MIANJIA, GOODS_MAX, GOODS_MIN, 
+      QY_ID, CSD_ID, CSP_ID, 
+      CSL_ID, GOODS_STATE, CA_SHI_ID, 
+      CA_SHENG_ID)
+    values (#{goodsId,jdbcType=VARCHAR}, #{goodsNo,jdbcType=VARCHAR}, #{goodsMa,jdbcType=VARCHAR}, 
+      #{goodsName,jdbcType=VARCHAR}, #{goodsChandi,jdbcType=VARCHAR}, #{goodsJiage,jdbcType=DECIMAL}, 
+      #{goodsMianjia,jdbcType=DECIMAL}, #{goodsMax,jdbcType=DECIMAL}, #{goodsMin,jdbcType=DECIMAL}, 
+      #{qyId,jdbcType=VARCHAR}, #{csdId,jdbcType=VARCHAR}, #{cspId,jdbcType=VARCHAR}, 
+      #{cslId,jdbcType=VARCHAR}, #{goodsState,jdbcType=VARCHAR}, #{caShiId,jdbcType=VARCHAR}, 
+      #{caShengId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.information.entity.KcglGoods" >
+    insert into KCGL_GOODS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="goodsNo != null" >
+        GOODS_NO,
+      </if>
+      <if test="goodsMa != null" >
+        GOODS_MA,
+      </if>
+      <if test="goodsName != null" >
+        GOODS_NAME,
+      </if>
+      <if test="goodsChandi != null" >
+        GOODS_CHANDI,
+      </if>
+      <if test="goodsJiage != null" >
+        GOODS_JIAGE,
+      </if>
+      <if test="goodsMianjia != null" >
+        GOODS_MIANJIA,
+      </if>
+      <if test="goodsMax != null" >
+        GOODS_MAX,
+      </if>
+      <if test="goodsMin != null" >
+        GOODS_MIN,
+      </if>
+      <if test="qyId != null" >
+        QY_ID,
+      </if>
+      <if test="csdId != null" >
+        CSD_ID,
+      </if>
+      <if test="cspId != null" >
+        CSP_ID,
+      </if>
+      <if test="cslId != null" >
+        CSL_ID,
+      </if>
+      <if test="goodsState != null" >
+        GOODS_STATE,
+      </if>
+      <if test="caShiId != null" >
+        CA_SHI_ID,
+      </if>
+      <if test="caShengId != null" >
+        CA_SHENG_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNo != null" >
+        #{goodsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsMa != null" >
+        #{goodsMa,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsChandi != null" >
+        #{goodsChandi,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsJiage != null" >
+        #{goodsJiage,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsMianjia != null" >
+        #{goodsMianjia,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsMax != null" >
+        #{goodsMax,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsMin != null" >
+        #{goodsMin,jdbcType=DECIMAL},
+      </if>
+      <if test="qyId != null" >
+        #{qyId,jdbcType=VARCHAR},
+      </if>
+      <if test="csdId != null" >
+        #{csdId,jdbcType=VARCHAR},
+      </if>
+      <if test="cspId != null" >
+        #{cspId,jdbcType=VARCHAR},
+      </if>
+      <if test="cslId != null" >
+        #{cslId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsState != null" >
+        #{goodsState,jdbcType=VARCHAR},
+      </if>
+      <if test="caShiId != null" >
+        #{caShiId,jdbcType=VARCHAR},
+      </if>
+      <if test="caShengId != null" >
+        #{caShengId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.information.entity.KcglGoods" >
+    update KCGL_GOODS
+    <set >
+      <if test="goodsNo != null" >
+        GOODS_NO = #{goodsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsMa != null" >
+        GOODS_MA = #{goodsMa,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsChandi != null" >
+        GOODS_CHANDI = #{goodsChandi,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsJiage != null" >
+        GOODS_JIAGE = #{goodsJiage,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsMianjia != null" >
+        GOODS_MIANJIA = #{goodsMianjia,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsMax != null" >
+        GOODS_MAX = #{goodsMax,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsMin != null" >
+        GOODS_MIN = #{goodsMin,jdbcType=DECIMAL},
+      </if>
+      <if test="qyId != null" >
+        QY_ID = #{qyId,jdbcType=VARCHAR},
+      </if>
+      <if test="csdId != null" >
+        CSD_ID = #{csdId,jdbcType=VARCHAR},
+      </if>
+      <if test="cspId != null" >
+        CSP_ID = #{cspId,jdbcType=VARCHAR},
+      </if>
+      <if test="cslId != null" >
+        CSL_ID = #{cslId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsState != null" >
+        GOODS_STATE = #{goodsState,jdbcType=VARCHAR},
+      </if>
+      <if test="caShiId != null" >
+        CA_SHI_ID = #{caShiId,jdbcType=VARCHAR},
+      </if>
+      <if test="caShengId != null" >
+        CA_SHENG_ID = #{caShengId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where GOODS_ID = #{goodsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.information.entity.KcglGoods" >
+    update KCGL_GOODS
+    set GOODS_NO = #{goodsNo,jdbcType=VARCHAR},
+      GOODS_MA = #{goodsMa,jdbcType=VARCHAR},
+      GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      GOODS_CHANDI = #{goodsChandi,jdbcType=VARCHAR},
+      GOODS_JIAGE = #{goodsJiage,jdbcType=DECIMAL},
+      GOODS_MIANJIA = #{goodsMianjia,jdbcType=DECIMAL},
+      GOODS_MAX = #{goodsMax,jdbcType=DECIMAL},
+      GOODS_MIN = #{goodsMin,jdbcType=DECIMAL},
+      QY_ID = #{qyId,jdbcType=VARCHAR},
+      CSD_ID = #{csdId,jdbcType=VARCHAR},
+      CSP_ID = #{cspId,jdbcType=VARCHAR},
+      CSL_ID = #{cslId,jdbcType=VARCHAR},
+      GOODS_STATE = #{goodsState,jdbcType=VARCHAR},
+      CA_SHI_ID = #{caShiId,jdbcType=VARCHAR},
+      CA_SHENG_ID = #{caShengId,jdbcType=VARCHAR}
+    where GOODS_ID = #{goodsId,jdbcType=VARCHAR}
+  </update>
+</mapper>
