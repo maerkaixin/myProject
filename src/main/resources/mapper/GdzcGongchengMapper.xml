@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.information.mapper.GdzcGongchengMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.information.entity.GdzcGongcheng" >
+    <id column="GC_ID" property="gcId" jdbcType="VARCHAR" />
+    <result column="CGL_ID" property="cglId" jdbcType="VARCHAR" />
+    <result column="PP_ID" property="ppId" jdbcType="VARCHAR" />
+    <result column="DEPT_ID" property="deptId" jdbcType="VARCHAR" />
+    <result column="GC_NAME" property="gcName" jdbcType="VARCHAR" />
+    <result column="GC_INFO" property="gcInfo" jdbcType="VARCHAR" />
+    <result column="GC_NUM" property="gcNum" jdbcType="FLOAT" />
+    <result column="GC_START_DATE" property="gcStartDate" jdbcType="TIMESTAMP" />
+    <result column="GC_END_DATE" property="gcEndDate" jdbcType="TIMESTAMP" />
+    <result column="GC_PINGGU" property="gcPinggu" jdbcType="VARCHAR" />
+    <result column="cgl_name" property="cglName" jdbcType="VARCHAR" />
+    <result column="pp_name" property="ppName" jdbcType="VARCHAR" />
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    GC_ID, CGL_ID, PP_ID, DEPT_ID, GC_NAME, GC_INFO, GC_NUM, GC_START_DATE, GC_END_DATE, 
+    GC_PINGGU
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from GDZC_GONGCHENG
+    where GC_ID = #{gcId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.turing.information.page.GcglPage" >
+	select gc_id, gcgl.cgl_id,  gcgl.pp_id,  gcgl.dept_id, gc_name, gc_info, gc_num, gc_start_date, gc_end_date, gc_pinggu,
+	gclx.cgl_name , sysp.pp_name , sysd.dept_name
+	from gdzc_gongcheng gcgl 
+	left join code_gongchengleixing gclx on gcgl.cgl_id = gclx.cgl_id 
+	left join sys_person sysp on gcgl.pp_id = sysp.pp_id 
+	left join sys_dept sysd on gcgl.dept_id = sysd.dept_id
+    <where>
+    	<if test="gcName!=null and gcName!=''">
+    		and gc_name like concat('%',concat(#{gcName},'%'))
+    	</if>
+    	<if test="gcNumFrom!=null and gcNumFrom!=''">
+    		and gc_num >= #{gcNumFrom}
+    	</if>
+    	<if test="gcNumTo!=null and gcNumTo!=''">
+    		<![CDATA[  and gc_num <= #{gcNumTo} ]]>
+    	</if>
+    </where>
+    order by gc_start_date
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from GDZC_GONGCHENG
+    where GC_ID = #{gcId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.information.entity.GdzcGongcheng" >
+    insert into GDZC_GONGCHENG (GC_ID, CGL_ID, PP_ID, 
+      DEPT_ID, GC_NAME, GC_INFO, 
+      GC_NUM, GC_START_DATE, GC_END_DATE, 
+      GC_PINGGU)
+    values (#{gcId,jdbcType=VARCHAR}, #{cglId,jdbcType=VARCHAR}, #{ppId,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=VARCHAR}, #{gcName,jdbcType=VARCHAR}, #{gcInfo,jdbcType=VARCHAR}, 
+      #{gcNum,jdbcType=FLOAT}, #{gcStartDate,jdbcType=TIMESTAMP}, #{gcEndDate,jdbcType=TIMESTAMP}, 
+      #{gcPinggu,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.information.entity.GdzcGongcheng" >
+    insert into GDZC_GONGCHENG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gcId != null" >
+        GC_ID,
+      </if>
+      <if test="cglId != null" >
+        CGL_ID,
+      </if>
+      <if test="ppId != null" >
+        PP_ID,
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID,
+      </if>
+      <if test="gcName != null" >
+        GC_NAME,
+      </if>
+      <if test="gcInfo != null" >
+        GC_INFO,
+      </if>
+      <if test="gcNum != null" >
+        GC_NUM,
+      </if>
+      <if test="gcStartDate != null" >
+        GC_START_DATE,
+      </if>
+      <if test="gcEndDate != null" >
+        GC_END_DATE,
+      </if>
+      <if test="gcPinggu != null" >
+        GC_PINGGU,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gcId != null" >
+        #{gcId,jdbcType=VARCHAR},
+      </if>
+      <if test="cglId != null" >
+        #{cglId,jdbcType=VARCHAR},
+      </if>
+      <if test="ppId != null" >
+        #{ppId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="gcName != null" >
+        #{gcName,jdbcType=VARCHAR},
+      </if>
+      <if test="gcInfo != null" >
+        #{gcInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="gcNum != null" >
+        #{gcNum,jdbcType=FLOAT},
+      </if>
+      <if test="gcStartDate != null" >
+        #{gcStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gcEndDate != null" >
+        #{gcEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gcPinggu != null" >
+        #{gcPinggu,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.information.entity.GdzcGongcheng" >
+    update GDZC_GONGCHENG
+    <set >
+      <if test="cglId != null" >
+        CGL_ID = #{cglId,jdbcType=VARCHAR},
+      </if>
+      <if test="ppId != null" >
+        PP_ID = #{ppId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID = #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="gcName != null" >
+        GC_NAME = #{gcName,jdbcType=VARCHAR},
+      </if>
+      <if test="gcInfo != null" >
+        GC_INFO = #{gcInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="gcNum != null" >
+        GC_NUM = #{gcNum,jdbcType=FLOAT},
+      </if>
+      <if test="gcStartDate != null" >
+        GC_START_DATE = #{gcStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gcEndDate != null" >
+        GC_END_DATE = #{gcEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gcPinggu != null" >
+        GC_PINGGU = #{gcPinggu,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where GC_ID = #{gcId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.information.entity.GdzcGongcheng" >
+    update GDZC_GONGCHENG
+    set CGL_ID = #{cglId,jdbcType=VARCHAR},
+      PP_ID = #{ppId,jdbcType=VARCHAR},
+      DEPT_ID = #{deptId,jdbcType=VARCHAR},
+      GC_NAME = #{gcName,jdbcType=VARCHAR},
+      GC_INFO = #{gcInfo,jdbcType=VARCHAR},
+      GC_NUM = #{gcNum,jdbcType=FLOAT},
+      GC_START_DATE = #{gcStartDate,jdbcType=TIMESTAMP},
+      GC_END_DATE = #{gcEndDate,jdbcType=TIMESTAMP},
+      GC_PINGGU = #{gcPinggu,jdbcType=VARCHAR}
+    where GC_ID = #{gcId,jdbcType=VARCHAR}
+  </update>
+</mapper>

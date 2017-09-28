@@ -108,4 +108,10 @@ public class PersonServiceImpl extends BasicServiceImpl implements IPersonServic
 		userMapper.insertSelective(user);
 	}
 
+	@Override
+	public List<SysPerson> queryPersonList() {
+		// TODO Auto-generated method stub
+		return personMapper.queryPersonList();
+	}
+
 }

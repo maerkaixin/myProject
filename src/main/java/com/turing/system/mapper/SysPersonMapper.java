@@ -49,4 +49,6 @@ public interface SysPersonMapper {
 	 * @param ppId
 	 */
 	void updateUserIdToNull(String ppId);
+	
+	List<SysPerson> queryPersonList();
 }

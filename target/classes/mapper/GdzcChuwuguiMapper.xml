@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.information.mapper.GdzcChuwuguiMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.information.entity.GdzcChuwugui" >
+    <id column="CWG_ID" property="cwgId" jdbcType="VARCHAR" />
+    <result column="CWG_NO" property="cwgNo" jdbcType="VARCHAR" />
+    <result column="CWG_STATE" property="cwgState" jdbcType="VARCHAR" />
+    <result column="CWG_JIAGE" property="cwgJiage" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CWG_ID, CWG_NO, CWG_STATE, CWG_JIAGE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from GDZC_CHUWUGUI
+    where CWG_ID = #{cwgId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from GDZC_CHUWUGUI
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from GDZC_CHUWUGUI
+    where CWG_ID = #{cwgId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.information.entity.GdzcChuwugui" >
+    insert into GDZC_CHUWUGUI (CWG_ID, CWG_NO, CWG_STATE, 
+      CWG_JIAGE)
+    values (#{cwgId,jdbcType=VARCHAR}, #{cwgNo,jdbcType=VARCHAR}, #{cwgState,jdbcType=VARCHAR}, 
+      #{cwgJiage,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.information.entity.GdzcChuwugui" >
+    insert into GDZC_CHUWUGUI
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cwgId != null" >
+        CWG_ID,
+      </if>
+      <if test="cwgNo != null" >
+        CWG_NO,
+      </if>
+      <if test="cwgState != null" >
+        CWG_STATE,
+      </if>
+      <if test="cwgJiage != null" >
+        CWG_JIAGE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cwgId != null" >
+        #{cwgId,jdbcType=VARCHAR},
+      </if>
+      <if test="cwgNo != null" >
+        #{cwgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cwgState != null" >
+        #{cwgState,jdbcType=VARCHAR},
+      </if>
+      <if test="cwgJiage != null" >
+        #{cwgJiage,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.information.entity.GdzcChuwugui" >
+    update GDZC_CHUWUGUI
+    <set >
+      <if test="cwgNo != null" >
+        CWG_NO = #{cwgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cwgState != null" >
+        CWG_STATE = #{cwgState,jdbcType=VARCHAR},
+      </if>
+      <if test="cwgJiage != null" >
+        CWG_JIAGE = #{cwgJiage,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where CWG_ID = #{cwgId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.information.entity.GdzcChuwugui" >
+    update GDZC_CHUWUGUI
+    set CWG_NO = #{cwgNo,jdbcType=VARCHAR},
+      CWG_STATE = #{cwgState,jdbcType=VARCHAR},
+      CWG_JIAGE = #{cwgJiage,jdbcType=DECIMAL}
+    where CWG_ID = #{cwgId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -39,4 +39,6 @@ public interface IPersonService extends IBasicService{
 
 	void saveUser(SysUser user);
 
+	List<SysPerson> queryPersonList();
+
 }

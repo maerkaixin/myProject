@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.information.mapper.GdzcWeixiuMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.information.entity.GdzcWeixiu" >
+    <id column="WXJL_ID" property="wxjlId" jdbcType="VARCHAR" />
+    <result column="CWL_ID" property="cwlId" jdbcType="VARCHAR" />
+    <result column="DEPT_ID" property="deptId" jdbcType="VARCHAR" />
+    <result column="PP_ID" property="ppId" jdbcType="VARCHAR" />
+    <result column="WXJL_INFO" property="wxjlInfo" jdbcType="VARCHAR" />
+    <result column="WXJL_TIME" property="wxjlTime" jdbcType="TIMESTAMP" />
+    <result column="WXJL_LEN" property="wxjlLen" jdbcType="DECIMAL" />
+    <result column="WXJL_STATE" property="wxjlState" jdbcType="VARCHAR" />
+    <result column="WXJL_NAME" property="wxjlName" jdbcType="VARCHAR" />
+    
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    <result column="pp_name" property="ppName" jdbcType="VARCHAR" />
+    <result column="cwl_name" property="cwlName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    WXJL_ID, CWL_ID, DEPT_ID, PP_ID, WXJL_INFO, WXJL_TIME, WXJL_LEN, WXJL_STATE, WXJL_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from GDZC_WEIXIU
+    where WXJL_ID = #{wxjlId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.turing.information.page.WxPage" >
+  	select wxjl_id, cwl_id, wx.dept_id, wx.pp_id, wxjl_info, wxjl_time, wxjl_len, wxjl_state, wxjl_name ,sd.dept_name,sp.pp_name,cw.cwl_name
+	from gdzc_weixiu wx 
+	left join sys_dept sd on wx.dept_id = sd.dept_id 
+	left join sys_person sp on wx.pp_id = sp.pp_id 
+	left join code_weixiuleixing cw on wx.cwl_id = cw.cwl_id 
+  	<where>
+  		<if test="wxjlName!=null and wxjlName!=''">
+  			and wxjl_name like concat('%',concat(#{wxjlName},'%') )
+  		</if>
+  	</where>
+  	order by wxjl_time desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from GDZC_WEIXIU
+    where WXJL_ID = #{wxjlId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.information.entity.GdzcWeixiu" >
+    insert into GDZC_WEIXIU (WXJL_ID, CWL_ID, DEPT_ID, 
+      PP_ID, WXJL_INFO, WXJL_TIME, 
+      WXJL_LEN, WXJL_STATE, WXJL_NAME
+      )
+    values (#{wxjlId,jdbcType=VARCHAR}, #{cwlId,jdbcType=VARCHAR}, #{deptId,jdbcType=VARCHAR}, 
+      #{ppId,jdbcType=VARCHAR}, #{wxjlInfo,jdbcType=VARCHAR}, #{wxjlTime,jdbcType=TIMESTAMP}, 
+      #{wxjlLen,jdbcType=DECIMAL}, #{wxjlState,jdbcType=VARCHAR}, #{wxjlName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.information.entity.GdzcWeixiu" >
+    insert into GDZC_WEIXIU
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wxjlId != null" >
+        WXJL_ID,
+      </if>
+      <if test="cwlId != null" >
+        CWL_ID,
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID,
+      </if>
+      <if test="ppId != null" >
+        PP_ID,
+      </if>
+      <if test="wxjlInfo != null" >
+        WXJL_INFO,
+      </if>
+      <if test="wxjlTime != null" >
+        WXJL_TIME,
+      </if>
+      <if test="wxjlLen != null" >
+        WXJL_LEN,
+      </if>
+      <if test="wxjlState != null" >
+        WXJL_STATE,
+      </if>
+      <if test="wxjlName != null" >
+        WXJL_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wxjlId != null" >
+        #{wxjlId,jdbcType=VARCHAR},
+      </if>
+      <if test="cwlId != null" >
+        #{cwlId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="ppId != null" >
+        #{ppId,jdbcType=VARCHAR},
+      </if>
+      <if test="wxjlInfo != null" >
+        #{wxjlInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="wxjlTime != null" >
+        #{wxjlTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wxjlLen != null" >
+        #{wxjlLen,jdbcType=DECIMAL},
+      </if>
+      <if test="wxjlState != null" >
+        #{wxjlState,jdbcType=VARCHAR},
+      </if>
+      <if test="wxjlName != null" >
+        #{wxjlName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.information.entity.GdzcWeixiu" >
+    update GDZC_WEIXIU
+    <set >
+      <if test="cwlId != null" >
+        CWL_ID = #{cwlId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID = #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="ppId != null" >
+        PP_ID = #{ppId,jdbcType=VARCHAR},
+      </if>
+      <if test="wxjlInfo != null" >
+        WXJL_INFO = #{wxjlInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="wxjlTime != null" >
+        WXJL_TIME = #{wxjlTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wxjlLen != null" >
+        WXJL_LEN = #{wxjlLen,jdbcType=DECIMAL},
+      </if>
+      <if test="wxjlState != null" >
+        WXJL_STATE = #{wxjlState,jdbcType=VARCHAR},
+      </if>
+      <if test="wxjlName != null" >
+        WXJL_NAME = #{wxjlName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where WXJL_ID = #{wxjlId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.information.entity.GdzcWeixiu" >
+    update GDZC_WEIXIU
+    set CWL_ID = #{cwlId,jdbcType=VARCHAR},
+      DEPT_ID = #{deptId,jdbcType=VARCHAR},
+      PP_ID = #{ppId,jdbcType=VARCHAR},
+      WXJL_INFO = #{wxjlInfo,jdbcType=VARCHAR},
+      WXJL_TIME = #{wxjlTime,jdbcType=TIMESTAMP},
+      WXJL_LEN = #{wxjlLen,jdbcType=DECIMAL},
+      WXJL_STATE = #{wxjlState,jdbcType=VARCHAR},
+      WXJL_NAME = #{wxjlName,jdbcType=VARCHAR}
+    where WXJL_ID = #{wxjlId,jdbcType=VARCHAR}
+  </update>
+</mapper>
