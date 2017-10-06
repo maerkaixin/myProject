@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.cardmanager.mapper.CardTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.cardmanager.entity.CardType" >
+    <id column="CARD_ID" property="cardId" jdbcType="VARCHAR" />
+    <result column="CARD_NAME" property="cardName" jdbcType="VARCHAR" />
+    <result column="CARD_NO" property="cardNo" jdbcType="VARCHAR" />
+    <result column="CARD_YUCUNJINE" property="cardYucunjine" jdbcType="DECIMAL" />
+    <result column="CARD_JIAGE" property="cardJiage" jdbcType="DECIMAL" />
+    <result column="CARD_INFO" property="cardInfo" jdbcType="VARCHAR" />
+    <result column="CARD_LCK" property="cardLck" jdbcType="VARCHAR" />
+    <result column="CARD_STATE" property="cardState" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CARD_ID, CARD_NAME, CARD_NO, CARD_YUCUNJINE, CARD_JIAGE, CARD_INFO, CARD_LCK, CARD_STATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CARD_TYPE
+    where CARD_ID = #{cardId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from CARD_TYPE
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CARD_TYPE
+    where CARD_ID = #{cardId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.cardmanager.entity.CardType" >
+    insert into CARD_TYPE (CARD_ID, CARD_NAME, CARD_NO, 
+      CARD_YUCUNJINE, CARD_JIAGE, CARD_INFO, 
+      CARD_LCK, CARD_STATE)
+    values (#{cardId,jdbcType=VARCHAR}, #{cardName,jdbcType=VARCHAR}, #{cardNo,jdbcType=VARCHAR}, 
+      #{cardYucunjine,jdbcType=DECIMAL}, #{cardJiage,jdbcType=DECIMAL}, #{cardInfo,jdbcType=VARCHAR}, 
+      #{cardLck,jdbcType=VARCHAR}, #{cardState,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.cardmanager.entity.CardType" >
+    insert into CARD_TYPE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cardId != null" >
+        CARD_ID,
+      </if>
+      <if test="cardName != null" >
+        CARD_NAME,
+      </if>
+      <if test="cardNo != null" >
+        CARD_NO,
+      </if>
+      <if test="cardYucunjine != null" >
+        CARD_YUCUNJINE,
+      </if>
+      <if test="cardJiage != null" >
+        CARD_JIAGE,
+      </if>
+      <if test="cardInfo != null" >
+        CARD_INFO,
+      </if>
+      <if test="cardLck != null" >
+        CARD_LCK,
+      </if>
+      <if test="cardState != null" >
+        CARD_STATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cardId != null" >
+        #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="cardName != null" >
+        #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null" >
+        #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardYucunjine != null" >
+        #{cardYucunjine,jdbcType=DECIMAL},
+      </if>
+      <if test="cardJiage != null" >
+        #{cardJiage,jdbcType=DECIMAL},
+      </if>
+      <if test="cardInfo != null" >
+        #{cardInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardLck != null" >
+        #{cardLck,jdbcType=VARCHAR},
+      </if>
+      <if test="cardState != null" >
+        #{cardState,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.cardmanager.entity.CardType" >
+    update CARD_TYPE
+    <set >
+      <if test="cardName != null" >
+        CARD_NAME = #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null" >
+        CARD_NO = #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardYucunjine != null" >
+        CARD_YUCUNJINE = #{cardYucunjine,jdbcType=DECIMAL},
+      </if>
+      <if test="cardJiage != null" >
+        CARD_JIAGE = #{cardJiage,jdbcType=DECIMAL},
+      </if>
+      <if test="cardInfo != null" >
+        CARD_INFO = #{cardInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardLck != null" >
+        CARD_LCK = #{cardLck,jdbcType=VARCHAR},
+      </if>
+      <if test="cardState != null" >
+        CARD_STATE = #{cardState,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CARD_ID = #{cardId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.cardmanager.entity.CardType" >
+    update CARD_TYPE
+    set CARD_NAME = #{cardName,jdbcType=VARCHAR},
+      CARD_NO = #{cardNo,jdbcType=VARCHAR},
+      CARD_YUCUNJINE = #{cardYucunjine,jdbcType=DECIMAL},
+      CARD_JIAGE = #{cardJiage,jdbcType=DECIMAL},
+      CARD_INFO = #{cardInfo,jdbcType=VARCHAR},
+      CARD_LCK = #{cardLck,jdbcType=VARCHAR},
+      CARD_STATE = #{cardState,jdbcType=VARCHAR}
+    where CARD_ID = #{cardId,jdbcType=VARCHAR}
+  </update>
+</mapper>

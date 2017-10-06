@@ -3,6 +3,7 @@ package com.turing.system.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 
 import com.turing.system.entity.SysPerson;
@@ -51,4 +52,9 @@ public interface SysPersonMapper {
 	void updateUserIdToNull(String ppId);
 	
 	List<SysPerson> queryPersonList();
+	@Select("select pp_id, pp_no, pp_minzu, pp_info, pp_in_time, pp_pay, pp_state,"
+			+ " pp_name, pp_birth, pp_sex, pp_adds, pp_phone, pp_shenfenzheng, sp_id,"
+			+ " user_id, dept_id, pp_pic from sys_person where dept_id = #{deptId}")
+	@ResultMap("BaseResultMap")
+	List<SysPerson> queryPersonByDeptId(String deptId);
 }

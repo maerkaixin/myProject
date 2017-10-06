@@ -1,6 +1,7 @@
 package com.turing.information.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -11,64 +12,64 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.turing.code.entity.CodeGongchengleixing;
-import com.turing.code.service.IGclxService;
-import com.turing.information.entity.GdzcGongcheng;
-import com.turing.information.page.GcglPage;
-import com.turing.information.service.IGcglService;
+import com.turing.information.entity.KcglCangku;
+import com.turing.information.page.CangkuPage;
+import com.turing.information.service.ICangkuService;
 import com.turing.system.entity.SysDept;
 import com.turing.system.entity.SysPerson;
 import com.turing.system.service.IDeptService;
 import com.turing.system.service.IPersonService;
 
 @Controller
-@RequestMapping(value="gcgl")
+@RequestMapping(value="ck")
 @Scope(value="prototype")
-@SessionAttributes(types=GcglPage.class)
-public class GcglController {
+@SessionAttributes(types=CangkuPage.class)
+public class CangkuController {
 	@Autowired
-	private IGcglService service;
-	@Autowired
-	private IGclxService gclxService;
-	@Autowired
-	private IPersonService personService;
+	private ICangkuService service;
 	@Autowired
 	private IDeptService deptService;
+	@Autowired
+	private IPersonService perService;
 	
 	@RequestMapping(value="query")
-	public String queryAll(ModelMap modelMap,GcglPage page){
-		
+	public String query(ModelMap modelMap,CangkuPage page){
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
-		List<GdzcGongcheng> list = service.queryAll(page);
-		PageInfo<GdzcGongcheng> pageInfo = new PageInfo<GdzcGongcheng>(list);
-		modelMap.put("pageInfo", pageInfo);
-		modelMap.put("page",page);
 		
-		return "jsp/information/gcgl/query_gcgl";
+		List<KcglCangku> list = service.queryAll(page);
+		PageInfo<KcglCangku> pageInfo = new PageInfo<KcglCangku>(list);
+		modelMap.put("pageInfo", pageInfo);
+		modelMap.put("page", page);
+		List<SysDept> deptList = deptService.selectAll();
+		modelMap.put("deptList", deptList);
+		return "jsp/information/cangku/query_kcgl";
 	}
 	@RequestMapping(value="page")
 	public String page(ModelMap modelMap,String id){
-		List<CodeGongchengleixing> gclxList = gclxService.queryAll();
-		modelMap.put("gclxList", gclxList);
-		List<SysPerson> personList = personService.queryPersonList();
-		modelMap.put("personList", personList);
+		KcglCangku ck = service.queryById(id);
+		modelMap.put("ck", ck);
 		List<SysDept> deptList = deptService.selectAll();
 		modelMap.put("deptList", deptList);
 		if (id!=null && !id.equals("")) {
-			GdzcGongcheng gcgl = service.queryById(id);
-			modelMap.put("gcgl", gcgl);
+			List<SysPerson> perList = perService.queryPersonByDeptId(ck.getDeptId());
+			modelMap.put("perList", perList);
 		}
-		return "jsp/information/gcgl/page_gcgl";
+		
+		return "jsp/information/cangku/page_kcgl";
 	}
+	
 	@RequestMapping(value="save")
-	public String save(GdzcGongcheng gcgl){
-		service.save(gcgl);
+	public String save(KcglCangku ck){
+		 service.save(ck);
 		return "redirect:query.action";
 	}
+	
 	@RequestMapping(value="delete")
-	public String delete(String ids[]){
+	public String delete(String[] ids){
 		service.delete(ids);
 		return "redirect:query.action";
 	}
+	
+	
 	
 }

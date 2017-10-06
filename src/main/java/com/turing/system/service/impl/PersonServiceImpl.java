@@ -114,4 +114,9 @@ public class PersonServiceImpl extends BasicServiceImpl implements IPersonServic
 		return personMapper.queryPersonList();
 	}
 
+	@Override
+	public List<SysPerson> queryPersonByDeptId(String deptId) {
+		return personMapper.queryPersonByDeptId(deptId);
+	}
+
 }

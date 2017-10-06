@@ -59,4 +59,9 @@ public class DeptServiceImpl implements IDeptService{
 		deptMapper.deleteByPrimaryKey(id);
 	}
 
+	@Override
+	public List<SysDept> selectAll() {
+		return deptMapper.selectAll();
+	}
+
 }

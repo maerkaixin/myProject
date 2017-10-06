@@ -16,4 +16,6 @@ public interface IDeptService {
 
 	void deleteById(String id);
 
+	List<SysDept> selectAll();
+
 }

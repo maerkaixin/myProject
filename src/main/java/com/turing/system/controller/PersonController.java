@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.turing.framework.util.ResultJson;
 import com.turing.system.entity.SysDept;
 import com.turing.system.entity.SysPerson;
 import com.turing.system.entity.SysPost;
@@ -155,5 +156,18 @@ public class PersonController {
 		pp.setUserId(userId);
 		personService.update(pp);
 		return "redirect:query.action";
+	}
+	
+	@RequestMapping(value="queryPersonByDeptId")
+	@ResponseBody
+	public ResultJson queryPersonByDeptId(String id){
+		List<SysPerson> list = personService.queryPersonByDeptId(id);
+		ResultJson json = new ResultJson();
+		System.out.println(json.isSuccess());
+		if (list!=null && list.size()>0) {
+			json.setSuccess(true);
+			json.setObj(list);
+		}
+		return json;
 	}
 }

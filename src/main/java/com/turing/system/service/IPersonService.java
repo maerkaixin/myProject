@@ -41,4 +41,6 @@ public interface IPersonService extends IBasicService{
 
 	List<SysPerson> queryPersonList();
 
+	List<SysPerson> queryPersonByDeptId(String deptId);
+
 }

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.information.mapper.KcglCangkuMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.information.entity.KcglCangku" >
+    <id column="CK_ID" property="ckId" jdbcType="VARCHAR" />
+    <result column="PP_ID" property="ppId" jdbcType="VARCHAR" />
+    <result column="DEPT_ID" property="deptId" jdbcType="VARCHAR" />
+    <result column="CK_NO" property="ckNo" jdbcType="VARCHAR" />
+    <result column="CK_NAME" property="ckName" jdbcType="VARCHAR" />
+    <result column="CK_ADDS" property="ckAdds" jdbcType="VARCHAR" />
+    <result column="pp_name" property="ppName" jdbcType="VARCHAR" />
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    
+    
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CK_ID, PP_ID, DEPT_ID, CK_NO, CK_NAME, CK_ADDS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from KCGL_CANGKU
+    where CK_ID = #{ckId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.turing.information.page.CangkuPage" >
+		select ck_id, kc.pp_id, kc.dept_id, ck_no, ck_name, ck_adds ,sp.pp_name,sd.dept_name
+		from kcgl_cangku kc
+		left join sys_person sp on kc.pp_id = sp.pp_id 
+		left join sys_dept sd on kc.dept_id = sd.dept_id 
+  	<where>
+  		<if test="ckNo!=null and ckNo!=''">
+  			and ck_no like concat('%',concat(#{ckNo},'%'))
+  		</if>
+  		<if test="deptId!=null and deptId!=''">
+  			and kc.dept_id = #{deptId}
+  		</if>
+  	</where>
+  order by ck_name
+  
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from KCGL_CANGKU
+    where CK_ID = #{ckId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.information.entity.KcglCangku" >
+    insert into KCGL_CANGKU (CK_ID, PP_ID, DEPT_ID, 
+      CK_NO, CK_NAME, CK_ADDS
+      )
+    values (#{ckId,jdbcType=VARCHAR}, #{ppId,jdbcType=VARCHAR}, #{deptId,jdbcType=VARCHAR}, 
+      #{ckNo,jdbcType=VARCHAR}, #{ckName,jdbcType=VARCHAR}, #{ckAdds,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.information.entity.KcglCangku" >
+    insert into KCGL_CANGKU
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ckId != null" >
+        CK_ID,
+      </if>
+      <if test="ppId != null" >
+        PP_ID,
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID,
+      </if>
+      <if test="ckNo != null" >
+        CK_NO,
+      </if>
+      <if test="ckName != null" >
+        CK_NAME,
+      </if>
+      <if test="ckAdds != null" >
+        CK_ADDS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ckId != null" >
+        #{ckId,jdbcType=VARCHAR},
+      </if>
+      <if test="ppId != null" >
+        #{ppId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="ckNo != null" >
+        #{ckNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ckName != null" >
+        #{ckName,jdbcType=VARCHAR},
+      </if>
+      <if test="ckAdds != null" >
+        #{ckAdds,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.information.entity.KcglCangku" >
+    update KCGL_CANGKU
+    <set >
+      <if test="ppId != null" >
+        PP_ID = #{ppId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID = #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="ckNo != null" >
+        CK_NO = #{ckNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ckName != null" >
+        CK_NAME = #{ckName,jdbcType=VARCHAR},
+      </if>
+      <if test="ckAdds != null" >
+        CK_ADDS = #{ckAdds,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CK_ID = #{ckId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.information.entity.KcglCangku" >
+    update KCGL_CANGKU
+    set PP_ID = #{ppId,jdbcType=VARCHAR},
+      DEPT_ID = #{deptId,jdbcType=VARCHAR},
+      CK_NO = #{ckNo,jdbcType=VARCHAR},
+      CK_NAME = #{ckName,jdbcType=VARCHAR},
+      CK_ADDS = #{ckAdds,jdbcType=VARCHAR}
+    where CK_ID = #{ckId,jdbcType=VARCHAR}
+  </update>
+</mapper>

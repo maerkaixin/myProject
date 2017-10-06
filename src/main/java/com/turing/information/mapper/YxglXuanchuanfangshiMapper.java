@@ -1,5 +1,7 @@
 package com.turing.information.mapper;
 
+import java.util.List;
+
 import com.turing.information.entity.YxglXuanchuanfangshi;
 
 public interface YxglXuanchuanfangshiMapper {
@@ -14,4 +16,6 @@ public interface YxglXuanchuanfangshiMapper {
     int updateByPrimaryKeySelective(YxglXuanchuanfangshi record);
 
     int updateByPrimaryKey(YxglXuanchuanfangshi record);
+
+	List<YxglXuanchuanfangshi> queryAll();
 }

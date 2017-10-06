@@ -108,7 +108,7 @@ public class GoodsController {
 	@RequestMapping(value="queryShiList")
 	public void queryShiList(HttpServletResponse response,String id) throws IOException{
 		List<CodeAdds>  list = addsService.queryByParentId(id);
-		System.out.println(list.size());
+		response.setCharacterEncoding("utf-8");
 //		String json = JSONUtils.toJSONString(list);
 		String json = JSONArray.toJSONString(list);
 		PrintWriter out = response.getWriter();
