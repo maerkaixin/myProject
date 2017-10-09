@@ -39,6 +39,17 @@
   order by ck_name
   
   </select>
+  <select id="queryByCkName" resultMap="BaseResultMap" parameterType="string" >
+		select ck_id, pp_id, dept_id, ck_no, ck_name, ck_adds 
+		from kcgl_cangku  where ck_name = #{ck_name}
+  		order by ck_name
+  
+  </select>
+  <select id="queryByCkNo" resultMap="BaseResultMap" parameterType="string" >
+		select ck_id, pp_id, dept_id, ck_no, ck_name, ck_adds 
+		from kcgl_cangku  where ck_no = #{ck_no}
+  		order by ck_name
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from KCGL_CANGKU
     where CK_ID = #{ckId,jdbcType=VARCHAR}

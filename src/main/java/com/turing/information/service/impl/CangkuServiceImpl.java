@@ -10,33 +10,47 @@ import com.turing.information.entity.KcglCangku;
 import com.turing.information.mapper.KcglCangkuMapper;
 import com.turing.information.page.CangkuPage;
 import com.turing.information.service.ICangkuService;
+
 @Service
 public class CangkuServiceImpl implements ICangkuService {
 	@Autowired
 	private KcglCangkuMapper mapper;
+
 	@Override
 	public List<KcglCangku> queryAll(CangkuPage page) {
 		return mapper.queryAll(page);
 	}
+
 	@Override
 	public KcglCangku queryById(String id) {
 		return mapper.selectByPrimaryKey(id);
 	}
+
 	@Override
 	public void save(KcglCangku ck) {
-		if (ck.getCkId()!=null && !ck.getCkId().equals("")) {
+		if (ck.getCkId() != null && !ck.getCkId().equals("")) {
 			mapper.updateByPrimaryKey(ck);
-		}else{
+		} else {
 			ck.setCkId(UUID.randomUUID().toString());
 			mapper.insert(ck);
 		}
 	}
+
 	@Override
 	public void delete(String[] ids) {
 		for (String string : ids) {
 			mapper.deleteByPrimaryKey(string);
 		}
 	}
-	
-	
+
+	@Override
+	public List<KcglCangku> queryByCkName(String ckName) {
+		return mapper.queryByCkName(ckName);
+	}
+
+	@Override
+	public List<KcglCangku> queryByCkNo(String ckNo) {
+		return mapper.queryByCkNo(ckNo);
+	}
+
 }

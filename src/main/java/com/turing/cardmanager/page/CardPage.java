@@ -1,4 +1,4 @@
-package com.turing.cardmanager;
+package com.turing.cardmanager.page;
 
 public class CardPage {
 

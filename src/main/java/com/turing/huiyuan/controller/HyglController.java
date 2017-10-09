@@ -4,12 +4,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -29,6 +33,7 @@ public class HyglController {
 	private IHyglService service;
 	@Autowired
 	private IRhfsService rhfsService;
+	
 	@RequestMapping(value="query")
 	public String queryAll(ModelMap modelMap,HyglHuiyuanPage page){
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
@@ -39,6 +44,20 @@ public class HyglController {
 		List<CodeRuhuifangshi> rhfsList = rhfsService.queryAll();
 		modelMap.put("rhfsList",rhfsList);
 		return "jsp/huiyuan/query_huiyuan";
+	}
+	@RequestMapping(value="getHuiyuan")
+	public String getHuiyuan(ModelMap modelMap,HyglHuiyuanPage page){
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
+		
+		page.setStart(page.getPageSize()*(page.getPageNum()-1));
+		
+		List<HyglHuiyuan> list = service.queryAll(page);
+		modelMap.put("pageInfo", new PageInfo<HyglHuiyuan>(list));
+		modelMap.put("page",page);
+		System.out.println("page"+page);
+		List<CodeRuhuifangshi> rhfsList = rhfsService.queryAll();
+		modelMap.put("rhfsList",rhfsList);
+		return "jsp/card/hybk/query_huiyuan";
 	}
 	
 	@RequestMapping(value="srtxQuery")
@@ -67,21 +86,21 @@ public class HyglController {
 		return "jsp/huiyuan/edit_huiyuan";
 	}
 	@RequestMapping("save")
-	public String save(HyglHuiyuan hy){
+	public String save(HyglHuiyuan hy,@RequestParam("pic")CommonsMultipartFile picFile,HttpServletRequest request){
 		hy.setHyId(UUID.randomUUID().toString());
 		hy.setHyInDate(new Date());
-		service.insert(hy);
+		service.insert(hy,picFile,request);
 		return "redirect:query.action";
 	}
 	@RequestMapping("edit")
-	public String edit(HyglHuiyuan hy){
-		service.updateByPrimaryKey(hy);
+	public String edit(HyglHuiyuan hy,@RequestParam("pic")CommonsMultipartFile picFile,HttpServletRequest request){
+		service.updateByPrimaryKey(hy,picFile,request);
 		return "redirect:query.action";
 	}
 	
 	@RequestMapping("delete")
-	public String delete(String[] ids){
-		service.deleteByPrimaryKey(ids);
+	public String delete(String[] ids,HttpServletRequest request){
+		service.deleteByPrimaryKey(ids, request);
 		return "redirect:query.action";
 	}
 

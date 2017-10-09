@@ -8,8 +8,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.alibaba.druid.support.json.JSONUtils;
+import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.turing.information.entity.KcglCangku;
@@ -70,6 +73,18 @@ public class CangkuController {
 		return "redirect:query.action";
 	}
 	
+	@RequestMapping(value="chongfuCkName")
+	@ResponseBody
+	public List<KcglCangku> chongfuCkName(String ckName){
+		List<KcglCangku> list = service.queryByCkName(ckName);
+		return  list;
+	}
+	@RequestMapping(value="chongfuCkNo")
+	@ResponseBody
+	public List<KcglCangku> chongfuCkNo(String ckNo){
+		List<KcglCangku> list = service.queryByCkNo(ckNo);
+		return  list;
+	}
 	
 	
 }

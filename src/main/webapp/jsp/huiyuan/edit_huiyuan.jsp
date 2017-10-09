@@ -16,6 +16,7 @@
 			<hr>
 			<form class="form-horizontal text-center" style="position:relative;"  name="infoForm" action="javascript:doSub()" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="hyId" value="${hy.hyId }">
+				<input type="hidden" name="hyPic" value="${hy.hyPic }">
 				<div class="container " >
 					<div class="form-group" style="position:absolute;right: 0px;top: 30px">
 							<img id="image" src="${hy.hyPic }" width="130" height="150">

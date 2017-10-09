@@ -19,7 +19,7 @@
   <select id="queryAll" resultMap="BaseResultMap"  >
     select 
     <include refid="Base_Column_List" />
-    from GDZC_CHUWUGUI
+    from GDZC_CHUWUGUI order by CWG_NO
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from GDZC_CHUWUGUI
@@ -83,5 +83,15 @@
       CWG_STATE = #{cwgState,jdbcType=VARCHAR},
       CWG_JIAGE = #{cwgJiage,jdbcType=DECIMAL}
     where CWG_ID = #{cwgId,jdbcType=VARCHAR}
+  </update>
+  <update id="changeState" parameterType="string">
+   update GDZC_CHUWUGUI
+    set cwg_state = 'P'
+    where CWG_ID = #{id}
+  </update>
+  <update id="huifu" parameterType="string">
+   update GDZC_CHUWUGUI
+    set cwg_state = 'A'
+    where CWG_ID = #{id}
   </update>
 </mapper>

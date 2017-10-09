@@ -15,4 +15,8 @@ public interface ICangkuService {
 
 	void delete(String[] ids);
 
+	List<KcglCangku> queryByCkName(String ckName);
+
+	List<KcglCangku> queryByCkNo(String ckNo);
+
 }

@@ -20,4 +20,8 @@ public interface KcglCangkuMapper {
 
 	List<KcglCangku> queryAll(CangkuPage page);
 
+	List<KcglCangku> queryByCkName(String ckName);
+
+	List<KcglCangku> queryByCkNo(String ckNo);
+
 }

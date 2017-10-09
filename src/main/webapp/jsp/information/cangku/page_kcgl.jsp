@@ -17,11 +17,11 @@
 				<div class="form-group">
 					<label class="control-label col-sm-2 col-md-2">仓库名称:</label>
                		<div class="col-md-4 col-sm-4">
-						<input class="form-control" name="ckName" value="${ck.ckName }"  placeholder="请输入仓库名称" />
+						<input class="form-control" name="ckName" value="${ck.ckName }"  placeholder="请输入仓库名称"  onkeyup="yanzhengCkName(this.value)" required/>
 					</div>
 					<label class="control-label col-sm-2 col-md-2">仓库代号:</label>
                		<div class="col-md-4 col-sm-4">
-						<input class="form-control" name="ckNo" value="${ck.ckNo }"  placeholder="请输入仓库代号" />
+						<input class="form-control" name="ckNo" value="${ck.ckNo }"  placeholder="请输入仓库代号" onkeyup="yanzhengCkNo(this.value)" required />
 					</div>
 				</div>
 				<div class="form-group">
@@ -145,6 +145,39 @@
 	
 	function goBack(){
 		history.go(-1);
+	}
+	
+	function yanzhengCkName(ckName){
+		//重复校验
+		var oldName = '${ck.ckName}'
+		if (oldName==ckName) {
+			return;
+		}
+		var url="<%=request.getContextPath()%>/ck/chongfuCkName.action";
+		var data ={"ckName":ckName };
+			$("input[name='ckName']+span").remove();
+		$.post(url,data,function(msg){
+			console.log(msg);
+			if (msg.length>0 ) {
+				$("input[name='ckName']").after("<span style='color:red'>名称重复</span>");
+			}
+		},"json");
+	}
+	function yanzhengCkNo(ckNo){
+		//重复校验
+		var oldNo = '${ck.ckNo}'
+		if (oldNo==ckNo) {
+			return;
+		}
+		var url="<%=request.getContextPath()%>/ck/chongfuCkNo.action";
+		var data ={"ckNo":ckNo };
+			$("input[name='ckNo']+span").remove();
+		$.post(url,data,function(msg){
+			console.log(msg);
+			if (msg.length>0 ) {
+				$("input[name='ckNo']").after("<span style='color:red'>编号重复</span>");
+			}
+		},"json");
 	}
 	
 	

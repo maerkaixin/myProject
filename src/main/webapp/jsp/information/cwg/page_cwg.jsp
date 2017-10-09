@@ -13,16 +13,17 @@
 			<hr>
 			<form class="form-horizontal text-center" name="infoForm" action="javascript:doSub()" method="post">
 				<input name="cwgId" value="${cwg.cwgId }" type="hidden">
+				<input name="cwgState" value="${cwg.cwgState }" type="hidden">
 				<div class="container ">
 					
 					<div class="form-group">
 						<label class="control-label col-sm-2 col-md-2">储物柜编号:</label>
 						<div class="col-md-4 col-sm-4">
-							<input class="form-control" name="cwgNo" value="${cwg.cwgNo}" placeholder="请输入储物柜编号" />
+							<input class="form-control" name="cwgNo" onkeyup="chongFu(this)" value="${cwg.cwgNo}" placeholder="请输入储物柜编号" required />
 						</div>
 						<label class="control-label col-sm-2 col-md-2">储物柜价格:</label>
 						<div class="col-md-4 col-sm-4">
-							<input class="form-control" name="cwgJiage" value="${cwg.cwgJiage }" placeholder="请输入储物柜价格" />
+							<input class="form-control" name="cwgJiage" value="${cwg.cwgJiage }" placeholder="请输入储物柜价格" required />
 						</div>
 					</div>
 					
@@ -76,6 +77,13 @@
 	
 	
 	function doSub(){
+		var reg = /^\d*\.*\d*$/;
+		var jiage = $("input[name='cwgJiage']").val();
+		if (!reg.test(jiage)) {
+			$("input[name='cwgJiage']+span").remove();
+			$("input[name='cwgJiage']").after("<span style='color:red;'>请输入正确的价格</span>");
+			return;
+		}
 		$("#myModal").modal('show');
 	}
 	
@@ -86,5 +94,10 @@
 	
 	function goBack(){
 		history.go(-1);
+	}
+	
+	function chongFu(obj){
+<%-- 		var url =<%=request.getContextPath()%>+"/chongFu.action"; --%>
+// 		$.post();
 	}
 </script>

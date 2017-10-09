@@ -75,11 +75,11 @@
 </html>
 <script type="text/javascript">
 	function addpage(){
-		window.location.href = "<%=ctx%>/cardType/addpage.action";
+		window.location.href = "<%=ctx%>/cardType/page.action";
 	}
 	
 	function editpage(id){
-		window.location.href = "<%=ctx%>/cardType/editpage.action?id="+id;
+		window.location.href = "<%=ctx%>/cardType/page.action?id="+id;
 	}
 	
 	function del(){

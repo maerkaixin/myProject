@@ -49,16 +49,22 @@
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach items="${page.list }" var="cwg" varStatus="i">
+				<c:forEach items="${pageInfo.list }" var="cwg" varStatus="i">
 					<tr>
-						<td>${i.count+page.start}</td>
+						<td>${i.count}</td>
 						<td>
 						<c:if test="${cwg.cwgState=='A'}">
 							<input type="checkbox" name="ids" value="${cwg.cwgId}">
 						</c:if>
 						</td>
 						<td>${cwg.cwgNo}</td>
-						<td>${cwg.cwgState=="A"?"可用":"不可用"}</td>
+						<td>
+							<c:choose>
+								<c:when test="${cwg.cwgState=='A'}">可用</c:when>
+								<c:when test="${cwg.cwgState=='U'}">已被使用</c:when>
+								<c:otherwise>不可用</c:otherwise>
+							</c:choose>
+						</td>
 						<td>${cwg.cwgJiage}</td>
 						<td>
 							<a href="javascript:editpage('${cwg.cwgId }')">修改</a>&nbsp;&nbsp;
@@ -97,7 +103,7 @@
 		</div>
 		<%-- 分页start --%>
 		<div class="container text-center" >
-			<page:page pageName="page" uri="/cwg/query.action"></page:page>
+			<page:page pageName="pageInfo" uri="/cwg/query.action"></page:page>
 		</div>
 		<%-- 分页end --%>
 	</body>

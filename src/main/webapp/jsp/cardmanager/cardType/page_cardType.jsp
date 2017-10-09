@@ -9,23 +9,41 @@
 	</head>
 	<body style="background:linear-gradient(white,#ebebeb,white);">
 		<label class="control-label label-default col-xs-12 " style="margin-bottom: 30px;">
-			<h4>当前位置：爱好类型 － 修改爱好类型</h4>
+			<h4>当前位置：会员卡类型 － 编辑会员卡类型</h4>
 		</label>
 		<div class="container">
 			<hr>
 			<form class="form-horizontal text-center" name="infoForm" action="javascript:doSub()" method="post">
-				<input type="hidden" name="cahId" value="${aihao.cahId}">
+			<input type="hidden" name="cardId" value="${cardType.cardId}"/>
 				<div class="container ">
 					<div class="form-group">
-						<label class="control-label col-sm-2 col-md-2">爱好类型名称:</label>
+						<label class="control-label col-sm-2 col-md-2">会员卡类型名称:</label>
 						<div class="col-md-9 col-sm-9">
-							<input class="form-control" name="cahName" value="${aihao.cahName}" placeholder="请输入爱好类型名称" />
+							<input class="form-control" name="cardName" value="${cardType.cardName }" placeholder="请输入卡类型名称" />
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2 col-md-2">爱好类型编码:</label>
+						<label class="control-label col-sm-2 col-md-2">会员卡类型代号:</label>
 						<div class="col-md-9 col-sm-9">
-							<input class="form-control" name="cahCode" value="${aihao.cahCode}" placeholder="请输入爱好类型编码" />
+							<input class="form-control" name="cardNo" value="${cardType.cardNo }" placeholder="请输入卡类型代号" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2 col-md-2">会员卡价格:</label>
+						<div class="col-md-9 col-sm-9">
+							<input class="form-control" name="cardJiage"  value="${cardType.cardJiage }" placeholder="请输入卡类型代号" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2 col-md-2">会员卡预存金额:</label>
+						<div class="col-md-9 col-sm-9">
+							<input class="form-control" name="cardYucunjine" value="${cardType.cardYucunjine }" placeholder="请输入卡类型代号" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2 col-md-2">会员卡说明:</label>
+						<div class="col-md-9 col-sm-9">
+							<textarea class="form-control" name="cardInfo"  rows="3" placeholder="请输说明" > ${cardType.cardInfo }</textarea>
 						</div>
 					</div>
 					<div class="form-group">
@@ -82,7 +100,7 @@
 	}
 	
 	function tijiao(){
-		$("form[name='infoForm']").attr("action","<%=ctx%>/aihao/edit.action");
+		$("form[name='infoForm']").attr("action","<%=ctx%>/cardType/save.action");
 		$("form").submit();
 	}
 	
