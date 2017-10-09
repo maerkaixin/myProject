@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.information.mapper.YxglHuodongjiluMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.information.entity.YxglHuodongjilu" >
+    <id column="HDJL_ID" property="hdjlId" jdbcType="VARCHAR" />
+    <result column="HDJL_TITLE" property="hdjlTitle" jdbcType="VARCHAR" />
+    <result column="HDJL_START_DATE" property="hdjlStartDate" jdbcType="TIMESTAMP" />
+    <result column="HDJL_END_DATE" property="hdjlEndDate" jdbcType="TIMESTAMP" />
+    <result column="HDJL_LEN" property="hdjlLen" jdbcType="DECIMAL" />
+    <result column="HDJL_TOTAL" property="hdjlTotal" jdbcType="DECIMAL" />
+    <result column="HDJL_INFO" property="hdjlInfo" jdbcType="VARCHAR" />
+    <result column="HDJL_ADDS" property="hdjlAdds" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    HDJL_ID, HDJL_TITLE, HDJL_START_DATE, HDJL_END_DATE, HDJL_LEN, HDJL_TOTAL, HDJL_INFO, 
+    HDJL_ADDS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from YXGL_HUODONGJILU
+    where HDJL_ID = #{hdjlId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from YXGL_HUODONGJILU
+    where HDJL_ID = #{hdjlId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.information.entity.YxglHuodongjilu" >
+    insert into YXGL_HUODONGJILU (HDJL_ID, HDJL_TITLE, HDJL_START_DATE, 
+      HDJL_END_DATE, HDJL_LEN, HDJL_TOTAL, 
+      HDJL_INFO, HDJL_ADDS)
+    values (#{hdjlId,jdbcType=VARCHAR}, #{hdjlTitle,jdbcType=VARCHAR}, #{hdjlStartDate,jdbcType=TIMESTAMP}, 
+      #{hdjlEndDate,jdbcType=TIMESTAMP}, #{hdjlLen,jdbcType=DECIMAL}, #{hdjlTotal,jdbcType=DECIMAL}, 
+      #{hdjlInfo,jdbcType=VARCHAR}, #{hdjlAdds,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.information.entity.YxglHuodongjilu" >
+    insert into YXGL_HUODONGJILU
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hdjlId != null" >
+        HDJL_ID,
+      </if>
+      <if test="hdjlTitle != null" >
+        HDJL_TITLE,
+      </if>
+      <if test="hdjlStartDate != null" >
+        HDJL_START_DATE,
+      </if>
+      <if test="hdjlEndDate != null" >
+        HDJL_END_DATE,
+      </if>
+      <if test="hdjlLen != null" >
+        HDJL_LEN,
+      </if>
+      <if test="hdjlTotal != null" >
+        HDJL_TOTAL,
+      </if>
+      <if test="hdjlInfo != null" >
+        HDJL_INFO,
+      </if>
+      <if test="hdjlAdds != null" >
+        HDJL_ADDS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hdjlId != null" >
+        #{hdjlId,jdbcType=VARCHAR},
+      </if>
+      <if test="hdjlTitle != null" >
+        #{hdjlTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="hdjlStartDate != null" >
+        #{hdjlStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hdjlEndDate != null" >
+        #{hdjlEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hdjlLen != null" >
+        #{hdjlLen,jdbcType=DECIMAL},
+      </if>
+      <if test="hdjlTotal != null" >
+        #{hdjlTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="hdjlInfo != null" >
+        #{hdjlInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="hdjlAdds != null" >
+        #{hdjlAdds,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.information.entity.YxglHuodongjilu" >
+    update YXGL_HUODONGJILU
+    <set >
+      <if test="hdjlTitle != null" >
+        HDJL_TITLE = #{hdjlTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="hdjlStartDate != null" >
+        HDJL_START_DATE = #{hdjlStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hdjlEndDate != null" >
+        HDJL_END_DATE = #{hdjlEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hdjlLen != null" >
+        HDJL_LEN = #{hdjlLen,jdbcType=DECIMAL},
+      </if>
+      <if test="hdjlTotal != null" >
+        HDJL_TOTAL = #{hdjlTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="hdjlInfo != null" >
+        HDJL_INFO = #{hdjlInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="hdjlAdds != null" >
+        HDJL_ADDS = #{hdjlAdds,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where HDJL_ID = #{hdjlId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.information.entity.YxglHuodongjilu" >
+    update YXGL_HUODONGJILU
+    set HDJL_TITLE = #{hdjlTitle,jdbcType=VARCHAR},
+      HDJL_START_DATE = #{hdjlStartDate,jdbcType=TIMESTAMP},
+      HDJL_END_DATE = #{hdjlEndDate,jdbcType=TIMESTAMP},
+      HDJL_LEN = #{hdjlLen,jdbcType=DECIMAL},
+      HDJL_TOTAL = #{hdjlTotal,jdbcType=DECIMAL},
+      HDJL_INFO = #{hdjlInfo,jdbcType=VARCHAR},
+      HDJL_ADDS = #{hdjlAdds,jdbcType=VARCHAR}
+    where HDJL_ID = #{hdjlId,jdbcType=VARCHAR}
+  </update>
+</mapper>

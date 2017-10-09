@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.card.mapper.CardHuiyuanbankaMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.card.entity.CardHuiyuanbanka" >
+    <id column="HC_ID" property="hcId" jdbcType="VARCHAR" />
+    <result column="HY_ID" property="hyId" jdbcType="VARCHAR" />
+    <result column="CARD_ID" property="cardId" jdbcType="VARCHAR" />
+    <result column="HC_TIME" property="hcTime" jdbcType="TIMESTAMP" />
+    <result column="HC_NUM" property="hcNum" jdbcType="DECIMAL" />
+    <result column="HC_NO" property="hcNo" jdbcType="VARCHAR" />
+    <result column="HC_PASS" property="hcPass" jdbcType="VARCHAR" />
+    <result column="HC_STATE" property="hcState" jdbcType="VARCHAR" />
+    <result column="hy_name" property="hyName" jdbcType="VARCHAR" />
+    <result column="card_name" property="cardName" jdbcType="VARCHAR" />
+    <result column="hy_no" property="hyNo" jdbcType="VARCHAR" />
+    <result column="card_yucunjine" property="cardYucunjine" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    HC_ID, HY_ID, CARD_ID, HC_TIME, HC_NUM, HC_NO, HC_PASS, HC_STATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CARD_HUIYUANBANKA
+    where HC_ID = #{hcId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.turing.card.page.HybkPage" >
+  select hc_id, ch.hy_id, ch.card_id, hc_time, hc_num, hc_no, hc_pass, hc_state,
+	hh.hy_name,ct.card_name
+	from card_huiyuanbanka  ch
+	left join hygl_huiyuan hh on ch.hy_id = hh.hy_id
+	left join card_type ct on ch.card_id = ct.card_id  
+	<where>
+		<if test="hyName!=null and hyName!=''">
+			and hh.hy_name like concat('%',concat(#{hyName},'%'))
+		</if>
+		<if test="cardName!=null and cardName!=''">
+			and ct.card_name like concat('%',concat(#{cardName},'%'))
+		</if>
+	</where>
+	order by hc_time desc
+  
+  </select>
+  <select id="selectOne" resultMap="BaseResultMap" parameterType="string" >
+  select hc_id, ch.hy_id, ch.card_id, hc_time, hc_num, hc_no, hc_pass, hc_state,
+	hh.hy_name,hh.hy_no,ct.card_name,ct.card_yucunjine
+	from card_huiyuanbanka  ch
+	left join hygl_huiyuan hh on ch.hy_id = hh.hy_id
+	left join card_type ct on ch.card_id = ct.card_id  
+	where hc_id=#{id}
+  
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CARD_HUIYUANBANKA
+    where HC_ID = #{hcId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.card.entity.CardHuiyuanbanka" >
+    insert into CARD_HUIYUANBANKA (HC_ID, HY_ID, CARD_ID, 
+      HC_TIME, HC_NUM, HC_NO, 
+      HC_PASS, HC_STATE)
+    values (#{hcId,jdbcType=VARCHAR}, #{hyId,jdbcType=VARCHAR}, #{cardId,jdbcType=VARCHAR}, 
+      #{hcTime,jdbcType=TIMESTAMP}, #{hcNum,jdbcType=DECIMAL}, #{hcNo,jdbcType=VARCHAR}, 
+      #{hcPass,jdbcType=VARCHAR}, #{hcState,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.card.entity.CardHuiyuanbanka" >
+    insert into CARD_HUIYUANBANKA
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hcId != null" >
+        HC_ID,
+      </if>
+      <if test="hyId != null" >
+        HY_ID,
+      </if>
+      <if test="cardId != null" >
+        CARD_ID,
+      </if>
+      <if test="hcTime != null" >
+        HC_TIME,
+      </if>
+      <if test="hcNum != null" >
+        HC_NUM,
+      </if>
+      <if test="hcNo != null" >
+        HC_NO,
+      </if>
+      <if test="hcPass != null" >
+        HC_PASS,
+      </if>
+      <if test="hcState != null" >
+        HC_STATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hcId != null" >
+        #{hcId,jdbcType=VARCHAR},
+      </if>
+      <if test="hyId != null" >
+        #{hyId,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="hcTime != null" >
+        #{hcTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hcNum != null" >
+        #{hcNum,jdbcType=DECIMAL},
+      </if>
+      <if test="hcNo != null" >
+        #{hcNo,jdbcType=VARCHAR},
+      </if>
+      <if test="hcPass != null" >
+        #{hcPass,jdbcType=VARCHAR},
+      </if>
+      <if test="hcState != null" >
+        #{hcState,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.card.entity.CardHuiyuanbanka" >
+    update CARD_HUIYUANBANKA
+    <set >
+      <if test="hyId != null" >
+        HY_ID = #{hyId,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        CARD_ID = #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="hcTime != null" >
+        HC_TIME = #{hcTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hcNum != null" >
+        HC_NUM = #{hcNum,jdbcType=DECIMAL},
+      </if>
+      <if test="hcNo != null" >
+        HC_NO = #{hcNo,jdbcType=VARCHAR},
+      </if>
+      <if test="hcPass != null" >
+        HC_PASS = #{hcPass,jdbcType=VARCHAR},
+      </if>
+      <if test="hcState != null" >
+        HC_STATE = #{hcState,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where HC_ID = #{hcId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.card.entity.CardHuiyuanbanka" >
+    update CARD_HUIYUANBANKA
+    set HY_ID = #{hyId,jdbcType=VARCHAR},
+      CARD_ID = #{cardId,jdbcType=VARCHAR},
+      HC_TIME = #{hcTime,jdbcType=TIMESTAMP},
+      HC_NUM = #{hcNum,jdbcType=DECIMAL},
+      HC_NO = #{hcNo,jdbcType=VARCHAR},
+      HC_PASS = #{hcPass,jdbcType=VARCHAR},
+      HC_STATE = #{hcState,jdbcType=VARCHAR}
+    where HC_ID = #{hcId,jdbcType=VARCHAR}
+  </update>
+</mapper>
