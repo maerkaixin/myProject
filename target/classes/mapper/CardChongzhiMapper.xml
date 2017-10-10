@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.card.mapper.CardChongzhiMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.card.entity.CardChongzhi" >
+    <id column="CZ_ID" property="czId" jdbcType="VARCHAR" />
+    <result column="HC_ID" property="hcId" jdbcType="VARCHAR" />
+    <result column="CZ_NUM" property="czNum" jdbcType="DECIMAL" />
+    <result column="CZ_TIME" property="czTime" jdbcType="TIMESTAMP" />
+    <result column="OLD__NUM" property="oldNum" jdbcType="DECIMAL" />
+    <result column="hy_name" property="hyName" jdbcType="VARCHAR" />
+    <result column="card_name" property="cardName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CZ_ID, HC_ID, CZ_NUM, CZ_TIME, OLD__NUM
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CARD_CHONGZHI
+    where CZ_ID = #{czId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.turing.card.page.ChongzhiPage" >
+  
+    select cz_id, cc.hc_id, cz_num, cz_time, old__num,
+ 	 hh.hy_name,ct.card_name
+	from card_huiyuanbanka  ch
+	left join hygl_huiyuan hh on ch.hy_id = hh.hy_id
+	left join card_type ct on ch.card_id = ct.card_id  
+  	right join card_chongzhi cc on cc.hc_id = ch.hc_id
+  	<where>
+  		<if test="hyName!=null and hyName!=''">
+  			and  hh.hy_name like concat('%',concat(#{hyName},'%'))
+  		</if>
+  		<if test="cardName!=null and cardName!=''">
+  			and  ct.card_name like concat('%',concat(#{cardName},'%'))
+  		</if>
+  	</where>
+  	order by cz_time desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CARD_CHONGZHI
+    where CZ_ID = #{czId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.card.entity.CardChongzhi" >
+    insert into CARD_CHONGZHI (CZ_ID, HC_ID, CZ_NUM, 
+      CZ_TIME, OLD__NUM)
+    values (#{czId,jdbcType=VARCHAR}, #{hcId,jdbcType=VARCHAR}, #{czNum,jdbcType=DECIMAL}, 
+      #{czTime,jdbcType=TIMESTAMP}, #{oldNum,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.card.entity.CardChongzhi" >
+    insert into CARD_CHONGZHI
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="czId != null" >
+        CZ_ID,
+      </if>
+      <if test="hcId != null" >
+        HC_ID,
+      </if>
+      <if test="czNum != null" >
+        CZ_NUM,
+      </if>
+      <if test="czTime != null" >
+        CZ_TIME,
+      </if>
+      <if test="oldNum != null" >
+        OLD__NUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="czId != null" >
+        #{czId,jdbcType=VARCHAR},
+      </if>
+      <if test="hcId != null" >
+        #{hcId,jdbcType=VARCHAR},
+      </if>
+      <if test="czNum != null" >
+        #{czNum,jdbcType=DECIMAL},
+      </if>
+      <if test="czTime != null" >
+        #{czTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oldNum != null" >
+        #{oldNum,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.card.entity.CardChongzhi" >
+    update CARD_CHONGZHI
+    <set >
+      <if test="hcId != null" >
+        HC_ID = #{hcId,jdbcType=VARCHAR},
+      </if>
+      <if test="czNum != null" >
+        CZ_NUM = #{czNum,jdbcType=DECIMAL},
+      </if>
+      <if test="czTime != null" >
+        CZ_TIME = #{czTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oldNum != null" >
+        OLD__NUM = #{oldNum,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where CZ_ID = #{czId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.card.entity.CardChongzhi" >
+    update CARD_CHONGZHI
+    set HC_ID = #{hcId,jdbcType=VARCHAR},
+      CZ_NUM = #{czNum,jdbcType=DECIMAL},
+      CZ_TIME = #{czTime,jdbcType=TIMESTAMP},
+      OLD__NUM = #{oldNum,jdbcType=DECIMAL}
+    where CZ_ID = #{czId,jdbcType=VARCHAR}
+  </update>
+</mapper>

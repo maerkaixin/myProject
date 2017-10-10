@@ -41,6 +41,24 @@
 	order by hc_time desc
   
   </select>
+  <select id="getHybk" resultMap="BaseResultMap" parameterType="com.turing.card.page.HybkPage" >
+  select hc_id, ch.hy_id, ch.card_id, hc_time, hc_num, hc_no, hc_pass, hc_state,
+	hh.hy_name,ct.card_name
+	from card_huiyuanbanka  ch
+	left join hygl_huiyuan hh on ch.hy_id = hh.hy_id
+	left join card_type ct on ch.card_id = ct.card_id  
+	<where>
+		<if test="hyName!=null and hyName!=''">
+			and hh.hy_name like concat('%',concat(#{hyName},'%'))
+		</if>
+		<if test="cardName!=null and cardName!=''">
+			and ct.card_name like concat('%',concat(#{cardName},'%'))
+		</if>
+		and hc_state !='P'
+	</where>
+	order by hc_time desc
+  
+  </select>
   <select id="selectOne" resultMap="BaseResultMap" parameterType="string" >
   select hc_id, ch.hy_id, ch.card_id, hc_time, hc_num, hc_no, hc_pass, hc_state,
 	hh.hy_name,hh.hy_no,ct.card_name,ct.card_yucunjine

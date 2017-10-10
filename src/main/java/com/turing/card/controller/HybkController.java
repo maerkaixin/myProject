@@ -31,6 +31,33 @@ public class HybkController {
 		modelMap.put("page", page);
 		return "jsp/card/hybk/query_hybk";
 	}
+	@RequestMapping(value="getHybk")
+	public String getHybk(ModelMap modelMap,HybkPage page) {
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
+		List<CardHuiyuanbanka> list = service.getHybk(page);
+		PageInfo<CardHuiyuanbanka> pageInfo = new PageInfo<CardHuiyuanbanka>(list);
+		modelMap.put("pageInfo", pageInfo);
+		modelMap.put("page", page);
+		return "jsp/card/chongzhi/query_hybk";
+	}
+	@RequestMapping(value="queryHybkForBk")
+	public String queryHybkForBk(ModelMap modelMap,HybkPage page) {
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
+		List<CardHuiyuanbanka> list = service.getHybk(page);
+		PageInfo<CardHuiyuanbanka> pageInfo = new PageInfo<CardHuiyuanbanka>(list);
+		modelMap.put("pageInfo", pageInfo);
+		modelMap.put("page", page);
+		return "jsp/card/buka/query_hybk";
+	}
+	@RequestMapping(value="queryHybkForTk")
+	public String queryHybkForTk(ModelMap modelMap,HybkPage page) {
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
+		List<CardHuiyuanbanka> list = service.getHybk(page);
+		PageInfo<CardHuiyuanbanka> pageInfo = new PageInfo<CardHuiyuanbanka>(list);
+		modelMap.put("pageInfo", pageInfo);
+		modelMap.put("page", page);
+		return "jsp/card/tuika/query_hybk";
+	}
 	
 	
 	@RequestMapping(value="page")

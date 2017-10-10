@@ -47,8 +47,8 @@ public class HyglServiceImpl implements IHyglService {
 		mapper.updateByPrimaryKey(hy);
 	}
 	@Override
-	public void deleteByPrimaryKey(String[] ids, HttpServletRequest request) {
-		for (String string : ids) {
+	public void deleteByPrimaryKey(List<String> listDel, HttpServletRequest request) {
+		for (String string : listDel) {
 			FileUtils.delete(mapper.selectByPrimaryKey(string).getHyPic(), request);
 			mapper.deleteByPrimaryKey(string);
 		}
@@ -59,6 +59,10 @@ public class HyglServiceImpl implements IHyglService {
 			page.setHyNames(page.getHyName().split(" "));;
 		}
 		return mapper.srtxQuery(page);
+	}
+	@Override
+	public String yanzhengHuiyuan(String id) {
+		return mapper.yanzhengHuiyuan(id);
 	}
 
 }

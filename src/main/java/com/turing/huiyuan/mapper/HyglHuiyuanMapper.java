@@ -24,4 +24,8 @@ public interface HyglHuiyuanMapper {
     List<HyglHuiyuan>  queryAll(HyglHuiyuanPage page);
 
 	List<HyglHuiyuan> srtxQuery(HyglHuiyuanPage page);
+	
+	@Select("select distinct hh.hy_name from card_huiyuanbanka ch "
+			+ "left join hygl_huiyuan hh on ch.hy_id = hh.hy_id where ch.hy_id = #{id}")
+	String yanzhengHuiyuan(String id);
 }

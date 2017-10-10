@@ -187,7 +187,20 @@
 	}
 	
 	function del(){
-		$("form[name='delForm']").submit();
+		//$("form[name='delForm']").submit();
+		var checkBoxes = $("input[type='checkbox']:checked");
+		if (checkBoxes.length==0) {
+			bootbox.alert("请选择需要删除的数据");
+			return;
+		}
+		
+		bootbox.confirm('确认要删除选中的数据吗',function(result){
+			if(result){
+				
+				
+			}
+		});
+		
 	}
 	
 	function selectAll(){

@@ -45,5 +45,9 @@ public class HybkServiceImpl implements IHybkService {
 			mapper.deleteByPrimaryKey(string);
 		}
 	}
+	@Override
+	public List<CardHuiyuanbanka> getHybk(HybkPage page) {
+		return mapper.getHybk(page);
+	}
 
 }

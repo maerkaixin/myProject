@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.card.mapper.CardZhuankaMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.card.entity.CardZhuanka" >
+    <id column="ZK_ID" property="zkId" jdbcType="VARCHAR" />
+    <result column="ZK_NUM" property="zkNum" jdbcType="DECIMAL" />
+    <result column="ZK_TIME" property="zkTime" jdbcType="TIMESTAMP" />
+    <result column="ZK_OLD_ID" property="zkOldId" jdbcType="VARCHAR" />
+    <result column="ZK_NEW_ID" property="zkNewId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ZK_ID, ZK_NUM, ZK_TIME, ZK_OLD_ID, ZK_NEW_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CARD_ZHUANKA
+    where ZK_ID = #{zkId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.turing.card.page.ZhuankaPage" >
+  
+  select zk_id, zk_num, zk_time, zk_old_id, zk_new_id ,
+	hhzrk.hy_name zrkName,
+	ctzrk.card_name zrkCardName,
+	hhzck.hy_name zckName,
+	ctzck.card_name zckCardName
+	from card_zhuanka zk 
+	inner join card_huiyuanbanka chzrk on zk.zk_new_id = chzrk.hc_id 
+	left join hygl_huiyuan hhzrk on chzrk.hy_id = hhzrk.hy_id
+	left join card_type ctzrk on chzrk.card_id = ctzrk.card_id
+	inner join card_huiyuanbanka chzck on zk.zk_old_id = chzck.hc_id 
+	left join hygl_huiyuan hhzck on chzck.hy_id = hhzck.hy_id
+	left join card_type ctzck on chzck.card_id = ctzck.card_id
+  <where>
+  	<if test="zrkName!=null and zrkName!=''">
+  	 and zrkName like concat('%',concar(#{zrkName},'%'))
+  	</if>
+  	<if test="zckName!=null and zckName!=''">
+  	 and zckName like concat('%',concar(#{zckName},'%'))
+  	</if>
+  </where>
+  	order by zk_time desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CARD_ZHUANKA
+    where ZK_ID = #{zkId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.card.entity.CardZhuanka" >
+    insert into CARD_ZHUANKA (ZK_ID, ZK_NUM, ZK_TIME, 
+      ZK_OLD_ID, ZK_NEW_ID)
+    values (#{zkId,jdbcType=VARCHAR}, #{zkNum,jdbcType=DECIMAL}, #{zkTime,jdbcType=TIMESTAMP}, 
+      #{zkOldId,jdbcType=VARCHAR}, #{zkNewId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.card.entity.CardZhuanka" >
+    insert into CARD_ZHUANKA
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="zkId != null" >
+        ZK_ID,
+      </if>
+      <if test="zkNum != null" >
+        ZK_NUM,
+      </if>
+      <if test="zkTime != null" >
+        ZK_TIME,
+      </if>
+      <if test="zkOldId != null" >
+        ZK_OLD_ID,
+      </if>
+      <if test="zkNewId != null" >
+        ZK_NEW_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="zkId != null" >
+        #{zkId,jdbcType=VARCHAR},
+      </if>
+      <if test="zkNum != null" >
+        #{zkNum,jdbcType=DECIMAL},
+      </if>
+      <if test="zkTime != null" >
+        #{zkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zkOldId != null" >
+        #{zkOldId,jdbcType=VARCHAR},
+      </if>
+      <if test="zkNewId != null" >
+        #{zkNewId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.card.entity.CardZhuanka" >
+    update CARD_ZHUANKA
+    <set >
+      <if test="zkNum != null" >
+        ZK_NUM = #{zkNum,jdbcType=DECIMAL},
+      </if>
+      <if test="zkTime != null" >
+        ZK_TIME = #{zkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zkOldId != null" >
+        ZK_OLD_ID = #{zkOldId,jdbcType=VARCHAR},
+      </if>
+      <if test="zkNewId != null" >
+        ZK_NEW_ID = #{zkNewId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ZK_ID = #{zkId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.card.entity.CardZhuanka" >
+    update CARD_ZHUANKA
+    set ZK_NUM = #{zkNum,jdbcType=DECIMAL},
+      ZK_TIME = #{zkTime,jdbcType=TIMESTAMP},
+      ZK_OLD_ID = #{zkOldId,jdbcType=VARCHAR},
+      ZK_NEW_ID = #{zkNewId,jdbcType=VARCHAR}
+    where ZK_ID = #{zkId,jdbcType=VARCHAR}
+  </update>
+</mapper>

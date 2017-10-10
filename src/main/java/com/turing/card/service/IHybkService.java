@@ -21,4 +21,6 @@ public interface IHybkService {
 
 	void delete(String[] ids);
 
+	List<CardHuiyuanbanka> getHybk(HybkPage page);
+
 }

@@ -1,7 +1,11 @@
 package com.turing.cardmanager.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -54,9 +58,29 @@ public class CardTypeController {
 		return "redirect:query.action";
 	}
 	@RequestMapping(value="delete")
-	public String delete(String[] ids){
-		service.delete(ids);
-		return "redirect:query.action";
+	public String delete(String[] ids,ModelMap modelMap,HttpServletRequest request){
+		List<String> idsList = new ArrayList<String>();
+		List<String> nameList = new ArrayList<String>();
+		for (String id : ids) {
+			String cardName = service.yanzhengKaxinxi(id);
+			if (StringUtils.isNotBlank(cardName)) {
+				nameList.add(cardName);
+			}else{
+				idsList.add(id);
+			}
+		}
+		service.delete(idsList);
+		if (nameList.isEmpty()) {
+			return "redirect:query.action";
+		}
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < nameList.size(); i++) {
+			sb.append("卡类型"+nameList.get(i)+"已被使用,请先删除其办卡信息再删除卡类型<br>");
+		}
+		
+		sb.append("<a href='"+request.getContextPath()+"/cardType/query.action'>返回</a>");
+		modelMap.put("message", sb.toString());
+		return "error/message";
 	}
 	
 

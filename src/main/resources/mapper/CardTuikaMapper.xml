@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.card.mapper.CardTuikaMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.card.entity.CardTuika" >
+    <id column="TK_ID" property="tkId" jdbcType="VARCHAR" />
+    <result column="HC_ID" property="hcId" jdbcType="VARCHAR" />
+    <result column="TK_TIME" property="tkTime" jdbcType="TIMESTAMP" />
+    <result column="TK_INFO" property="tkInfo" jdbcType="VARCHAR" />
+    <result column="hy_name" property="hyName" jdbcType="VARCHAR" />
+    <result column="card_name" property="cardName" jdbcType="VARCHAR" />
+    <result column="hc_no" property="hcNo" jdbcType="VARCHAR" />
+    <result column="hc_num" property="hcNum" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    TK_ID, HC_ID, TK_TIME, TK_INFO
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CARD_TUIKA
+    where TK_ID = #{tkId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.turing.card.page.TuikaPage" >
+      select hh.hy_name,ct.card_name,tk.tk_time,tk.tk_info,tk.tk_id,tk.hc_id
+  	  from card_huiyuanbanka  ch
+  	  left join hygl_huiyuan hh on ch.hy_id = hh.hy_id
+   	 left join card_type ct on ch.card_id = ct.card_id 
+   	 right join  card_tuika tk on ch.hc_id = tk.hc_id
+  <where>
+  	  	<if test="hyName!=null and hyName!=''">
+  			and  hh.hy_name like concat('%',concat(#{hyName},'%'))
+  		</if>
+  		<if test="cardName!=null and cardName!=''">
+  			and  ct.card_name like concat('%',concat(#{cardName},'%'))
+  		</if>
+  </where>
+  order by tk.tk_time desc
+  
+  </select>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="string" >
+      select hh.hy_name,ct.card_name,tk.tk_time,tk.tk_info,tk.tk_id,tk.hc_id,ch.hc_no,ch.hc_num
+  	  from card_huiyuanbanka  ch
+  	  left join hygl_huiyuan hh on ch.hy_id = hh.hy_id
+   	 left join card_type ct on ch.card_id = ct.card_id 
+   	 right join  card_tuika tk on ch.hc_id = tk.hc_id
+	where   tk.tk_id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CARD_TUIKA
+    where TK_ID = #{tkId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.card.entity.CardTuika" >
+    insert into CARD_TUIKA (TK_ID, HC_ID, TK_TIME, 
+      TK_INFO)
+    values (#{tkId,jdbcType=VARCHAR}, #{hcId,jdbcType=VARCHAR}, #{tkTime,jdbcType=TIMESTAMP}, 
+      #{tkInfo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.card.entity.CardTuika" >
+    insert into CARD_TUIKA
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tkId != null" >
+        TK_ID,
+      </if>
+      <if test="hcId != null" >
+        HC_ID,
+      </if>
+      <if test="tkTime != null" >
+        TK_TIME,
+      </if>
+      <if test="tkInfo != null" >
+        TK_INFO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tkId != null" >
+        #{tkId,jdbcType=VARCHAR},
+      </if>
+      <if test="hcId != null" >
+        #{hcId,jdbcType=VARCHAR},
+      </if>
+      <if test="tkTime != null" >
+        #{tkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tkInfo != null" >
+        #{tkInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.card.entity.CardTuika" >
+    update CARD_TUIKA
+    <set >
+      <if test="hcId != null" >
+        HC_ID = #{hcId,jdbcType=VARCHAR},
+      </if>
+      <if test="tkTime != null" >
+        TK_TIME = #{tkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tkInfo != null" >
+        TK_INFO = #{tkInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TK_ID = #{tkId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.card.entity.CardTuika" >
+    update CARD_TUIKA
+    set HC_ID = #{hcId,jdbcType=VARCHAR},
+      TK_TIME = #{tkTime,jdbcType=TIMESTAMP},
+      TK_INFO = #{tkInfo,jdbcType=VARCHAR}
+    where TK_ID = #{tkId,jdbcType=VARCHAR}
+  </update>
+</mapper>

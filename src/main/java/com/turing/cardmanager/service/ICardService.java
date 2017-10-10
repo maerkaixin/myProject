@@ -13,6 +13,8 @@ public interface ICardService {
 
 	void save(CardType cardTyp);
 
-	void delete(String[] ids);
+	void delete(List<String> idsList);
+
+	String yanzhengKaxinxi(String id);
 
 }

@@ -1,11 +1,13 @@
 package com.turing.huiyuan.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -97,11 +99,34 @@ public class HyglController {
 		service.updateByPrimaryKey(hy,picFile,request);
 		return "redirect:query.action";
 	}
-	
+	/**
+	 * 会员删除功能
+	 * @param ids 需要删除的会员ids数组
+	 * @param request 
+	 * @param modelMap
+	 * @return
+	 */
 	@RequestMapping("delete")
-	public String delete(String[] ids,HttpServletRequest request){
-		service.deleteByPrimaryKey(ids, request);
-		return "redirect:query.action";
+	public String delete(String[] ids,HttpServletRequest request,ModelMap modelMap){
+		List<String> listDel = new ArrayList<String>();
+		StringBuffer sb = new StringBuffer();
+		for (String id : ids) {
+			String hyName = service.yanzhengHuiyuan(id);
+			if (StringUtils.isNotBlank(hyName)) {
+				sb.append("会员"+hyName+"已办理会员卡,请先删除其办卡信息再删除会员<br>");
+			}else{
+				listDel.add(id);
+			}
+		}
+		if (!listDel.isEmpty()) {
+			service.deleteByPrimaryKey(listDel, request);
+		}
+		if (sb.equals("")) {
+			return "redirect:query.action";
+		}
+		sb.append("<a href='"+request.getContextPath()+"/huiyuan/query.action'>返回</a>");
+			modelMap.put("message", sb.toString());
+			return "error/message";
 	}
 
 }

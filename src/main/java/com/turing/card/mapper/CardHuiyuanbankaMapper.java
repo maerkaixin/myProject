@@ -21,4 +21,6 @@ public interface CardHuiyuanbankaMapper {
 	List<CardHuiyuanbanka> queryAll(HybkPage page);
 
 	CardHuiyuanbanka selectOne(String id);
+
+	List<CardHuiyuanbanka> getHybk(HybkPage page);
 }

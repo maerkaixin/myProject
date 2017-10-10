@@ -37,10 +37,16 @@ public class CardServiceImpl implements ICardService {
 	}
 
 	@Override
-	public void delete(String[] ids) {
-		for (String string : ids) {
+	public void delete(List<String> idsList) {
+		for (String string : idsList) {
 			mapper.deleteByPrimaryKey(string);
 		}
+	}
+
+	@Override
+	public String yanzhengKaxinxi(String id) {
+		// TODO Auto-generated method stub
+		return mapper.yanzhengKaxinxi(id);
 	}
 
 }

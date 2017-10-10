@@ -7,6 +7,8 @@ import java.util.List;
 
 
 
+
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -24,8 +26,10 @@ public interface IHyglService {
 
 	void updateByPrimaryKey(HyglHuiyuan hy, CommonsMultipartFile picFile, HttpServletRequest request);
 
-	void deleteByPrimaryKey(String[] ids, HttpServletRequest request);
+	void deleteByPrimaryKey(List<String> listDel, HttpServletRequest request);
 
 	List<HyglHuiyuan> srtxQuery(HyglHuiyuanPage page);
+
+	String yanzhengHuiyuan(String id);
 
 }

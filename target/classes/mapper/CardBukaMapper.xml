@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.card.mapper.CardBukaMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.card.entity.CardBuka" >
+    <id column="BK_ID" property="bkId" jdbcType="VARCHAR" />
+    <result column="HC_ID" property="hcId" jdbcType="VARCHAR" />
+    <result column="BK_TIME" property="bkTime" jdbcType="TIMESTAMP" />
+    <result column="BK_NO" property="bkNo" jdbcType="VARCHAR" />
+    <result column="BK_OLD_NO" property="bkOldNo" jdbcType="VARCHAR" />
+    <result column="hy_name" property="hyName" jdbcType="VARCHAR" />
+    <result column="card_name" property="cardName" jdbcType="VARCHAR" />
+    
+    <result column="hc_no" property="hcNo" jdbcType="VARCHAR" />
+    <result column="hc_num" property="hcNum" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BK_ID, HC_ID, BK_TIME, BK_NO, BK_OLD_NO
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CARD_BUKA
+    where BK_ID = #{bkId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.turing.card.page.BukaPage" >
+    select
+  	cb.bk_id,cb.bk_time,cb.bk_no,cb.bk_old_no, hh.hy_name,ct.card_name
+  	from card_huiyuanbanka  ch
+  	left join hygl_huiyuan hh on ch.hy_id = hh.hy_id
+  	left join card_type ct on ch.card_id = ct.card_id 
+  	right join  card_buka cb on ch.hc_id = cb.hc_id
+  	<where>
+  	  	<if test="hyName!=null and hyName!=''">
+  			and  hh.hy_name like concat('%',concat(#{hyName},'%'))
+  		</if>
+  		<if test="cardName!=null and cardName!=''">
+  			and  ct.card_name like concat('%',concat(#{cardName},'%'))
+  		</if>
+  	
+  	</where>
+  order by cb.bk_time
+  </select>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="string" >
+    select
+    cb.bk_id,cb.bk_time,cb.bk_no,cb.bk_old_no, hh.hy_name,ct.card_name,ch.hc_id,ch.hc_no,ch.hc_num
+    from card_huiyuanbanka  ch
+    left join hygl_huiyuan hh on ch.hy_id = hh.hy_id
+    left join card_type ct on ch.card_id = ct.card_id 
+    right join  card_buka cb on ch.hc_id = cb.hc_id
+  	where cb.bk_id=#{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CARD_BUKA
+    where BK_ID = #{bkId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.turing.card.entity.CardBuka" >
+    insert into CARD_BUKA (BK_ID, HC_ID, BK_TIME, 
+      BK_NO, BK_OLD_NO)
+    values (#{bkId,jdbcType=VARCHAR}, #{hcId,jdbcType=VARCHAR}, #{bkTime,jdbcType=TIMESTAMP}, 
+      #{bkNo,jdbcType=VARCHAR}, #{bkOldNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.card.entity.CardBuka" >
+    insert into CARD_BUKA
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bkId != null" >
+        BK_ID,
+      </if>
+      <if test="hcId != null" >
+        HC_ID,
+      </if>
+      <if test="bkTime != null" >
+        BK_TIME,
+      </if>
+      <if test="bkNo != null" >
+        BK_NO,
+      </if>
+      <if test="bkOldNo != null" >
+        BK_OLD_NO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bkId != null" >
+        #{bkId,jdbcType=VARCHAR},
+      </if>
+      <if test="hcId != null" >
+        #{hcId,jdbcType=VARCHAR},
+      </if>
+      <if test="bkTime != null" >
+        #{bkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bkNo != null" >
+        #{bkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bkOldNo != null" >
+        #{bkOldNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.card.entity.CardBuka" >
+    update CARD_BUKA
+    <set >
+      <if test="hcId != null" >
+        HC_ID = #{hcId,jdbcType=VARCHAR},
+      </if>
+      <if test="bkTime != null" >
+        BK_TIME = #{bkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bkNo != null" >
+        BK_NO = #{bkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bkOldNo != null" >
+        BK_OLD_NO = #{bkOldNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BK_ID = #{bkId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.card.entity.CardBuka" >
+    update CARD_BUKA
+    set HC_ID = #{hcId,jdbcType=VARCHAR},
+      BK_TIME = #{bkTime,jdbcType=TIMESTAMP},
+      BK_NO = #{bkNo,jdbcType=VARCHAR},
+      BK_OLD_NO = #{bkOldNo,jdbcType=VARCHAR}
+    where BK_ID = #{bkId,jdbcType=VARCHAR}
+  </update>
+</mapper>
