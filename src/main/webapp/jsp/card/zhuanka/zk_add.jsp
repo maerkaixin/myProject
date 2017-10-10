@@ -34,7 +34,7 @@
 				<div class="container">
 					<div class="form-group">
 						<div class="col-sm-6">
-							<button type="button" class="btn btn-warning anniu" onclick="selectHYK()">选择转出卡</button>
+							<button type="button" class="btn btn-warning anniu" onclick="selectHYK(0)">选择转出卡</button>
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group text-left">
@@ -58,7 +58,7 @@
 					<hr/>
 					<div class="form-group">
 						<div class="col-sm-6">
-							<button type="button" class="btn btn-warning anniu" onclick="selectHYK()">选择转入卡</button>
+							<button type="button" class="btn btn-warning anniu" onclick="selectHYK(1)">选择转入卡</button>
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group text-left">
@@ -83,7 +83,7 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2 col-md-2">转出金额:</label>
 						<div class="col-md-10 col-sm-10">
-							<input class="form-control" name="zkNum"  placeholder="填写充值金额" />
+							<input class="form-control" name="zkNum" id="zkNum"  placeholder="填写转出金额" requored="true" min="1" step="1" type="number"  />
 						</div>
 					</div>
 					
@@ -133,35 +133,35 @@
 	</body>
 </html>
 <script type="text/javascript">
-	function selectHYK(){
+	function selectHYK(bj){
 		//alert('选择会员卡');
 		$("#myModalLabel").html("查询会员卡");
-		$("#modalBody").html("<iframe src='${pageContext.request.contextPath}/hybk/query2.action?clearpage=&hcState=A' width='100%' height='470px' style='border:0;'></iframe>");
+		$("#modalBody").html("<iframe src='${pageContext.request.contextPath}/hybk/queryHybkForZk.action?bj="+bj+"' width='100%' height='470px' style='border:0;'></iframe>");
 		$("#modalFooter2").html("<button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>");
 		$("#myModal").modal('show');
 	}
 	
 	function doSub(){
 		//必须选择一个会员卡
-		if($("input[name='hcId']").val()==""){
-			alert("请先选择一个要充值的卡");
+		if($("input[name='zkOldId']").val()==""){
+			bootbox.alert("请先选择要转出的卡");
 			reutrn;
 		}
-		//填写正确充值金额
-		var reg = /^[1-9]+\d*$/;
-		var czje = $.trim( $("input[name='czNum']").val() );
-		if(!reg.test(czje)){
-			$("input[name='czNum'] + span").remove();
-			$("input[name='czNum']").after("<span style='color:red;'>请填写正确充值金额</span>");
-			return;
+		if($("input[name='zkNewId']").val()==""){
+			bootbox.alert("请先选择要转入的卡");
+			reutrn;
 		}
-		tijiao();
+		bootbox.confirm("确认提交吗?",function(r){
+			if (r) {
+				tijiao();
+			}
+		});
 	}
 	
 	function tijiao(){
-		$("form[name='infoForm']").attr("action","<%=ctx%>/cz/addsave.action");
+		$("form[name='infoForm']").attr("action","<%=ctx%>/zk/addsave.action");
 		$("form").submit();
-	}
+	} 
 	
 	function goBack(){
 		history.go(-1);

@@ -19,11 +19,11 @@
 					<div class="form-group">
 						<label class="control-label col-md-2 col-sm-2">转出卡名称:</label>
 						<div class="col-md-4 col-sm-4">
-							<input class="form-control" name="zckName" value="" placeholder="请输入会员名称">
+							<input class="form-control" name="zckName" value="${page.zckName }" placeholder="请输入会员名称">
 						</div>
 						<label class="control-label col-md-2 col-sm-2">转入卡名称:</label>
 						<div class="col-md-4 col-sm-4">
-							<input class="form-control" name="zrkName" value="" placeholder="请输入卡类型名称">
+							<input class="form-control" name="zrkName" value="${page.zrkName }" placeholder="请输入卡类型名称">
 						</div>
 					</div>
 					<div class="form-group">

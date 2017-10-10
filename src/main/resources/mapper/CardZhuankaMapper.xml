@@ -33,10 +33,10 @@
 	left join card_type ctzck on chzck.card_id = ctzck.card_id
   <where>
   	<if test="zrkName!=null and zrkName!=''">
-  	 and zrkName like concat('%',concar(#{zrkName},'%'))
+  	 and hhzrk.hy_name like concat('%',concat(#{zrkName},'%'))
   	</if>
   	<if test="zckName!=null and zckName!=''">
-  	 and zckName like concat('%',concar(#{zckName},'%'))
+  	 and hhzck.hy_name  like concat('%',concat(#{zckName},'%'))
   	</if>
   </where>
   	order by zk_time desc
